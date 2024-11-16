@@ -5,8 +5,15 @@ FROM nginx
 COPY nginx.conf /etc/nginx/nginx.conf
 
 
-COPY certs/certificate.pem /etc/nginx/certs/fullchain.pem
-COPY certs/private-key.pem /etc/nginx/certs/privkey.pem
+# Créez un répertoire pour stocker les certificats SSL
+
+COPY certs.sh /certs.sh
+RUN bash certs.sh
+RUN rm /certs.sh
+
+# # Copiez les certificats SSL générés en amont dans le conteneur
+# COPY certs/certificate.pem /etc/nginx/certs/fullchain.pem
+# COPY certs/private-key.pem /etc/nginx/certs/privkey.pem
 
 # Copiez les certificats SSL générés en amont dans le conteneur
 # COPY certs/fullchain.pem /etc/nginx/certs/fullchain.pem

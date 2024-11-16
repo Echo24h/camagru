@@ -1,11 +1,9 @@
-version: '3'
-
 # ----------- NETWORKS -----------
 
 networks:
-  frontend_backend:
+  nginx_app:
     driver: bridge
-  backend_database:
+  app_database:
     driver: bridge
 
 # ----------- SERVICES -----------
@@ -15,49 +13,35 @@ services:
   nginx:  # Ajout du service NGINX
     container_name: nginx
     depends_on:
-      - frontend
+      - app
     env_file: .env
     build: ./nginx
     volumes:
-      - ./frontend:/usr/share/nginx/html
+      - ./app:/usr/share/nginx/html
     networks:
-      - frontend_backend
+      - nginx_app
     ports:
       - "80:80"    # Redirection HTTP
       - "443:443"  # Port HTTPS
 
-  frontend:
-    container_name: frontend
+  app:
+    container_name: app
     env_file: .env
     volumes:
-      - ./frontend:/app
+      - ./app:/app
     networks:
-      - frontend_backend
-    depends_on:
-      - backend
-    build: ./frontend
-    restart: on-failure
-
-  backend:
-    container_name: backend
-    env_file: .env
-    volumes:
-      - ./backend:/app
-    networks:
-      - frontend_backend
-      - backend_database
-    build: ./backend
+      - nginx_app
+      - app_database
     depends_on:
       - database
+    build: ./app
     restart: on-failure
-    ports:
-      - "3000:3000"
 
   database:
     container_name: database
     env_file: .env
     networks:
-      - backend_database
+      - app_database
     build: ./database
     volumes:
       - postgres-data:/var/lib/postgresql/data
