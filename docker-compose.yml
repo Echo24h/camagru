@@ -21,8 +21,8 @@ services:
     networks:
       - nginx_app
     ports:
-      - "80:80"    # Redirection HTTP
-      - "443:443"  # Port HTTPS
+      #- "80:80"    # Redirection HTTP
+      - "3000:3000"  # Port HTTPS
 
   app:
     container_name: app

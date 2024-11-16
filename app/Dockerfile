@@ -1,5 +1,3 @@
 FROM debian
 
-COPY * .
-
-EXPOSE 80
+COPY * ./
