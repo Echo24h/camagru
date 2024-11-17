@@ -1,53 +1,40 @@
-# ----------- NETWORKS -----------
-
-networks:
-  nginx_app:
-    driver: bridge
-  app_database:
-    driver: bridge
-
-# ----------- SERVICES -----------
+version: '3.8'
 
 services:
+  app:
+    build:
+      context: ./app
+    env_file: .env
+    volumes:
+      - ./app:/var/www/html
+    networks:
+      - app-network
+    ports:
+      - "9000:9000"
+    depends_on:
+      - db
 
-  nginx:  # Ajout du service NGINX
-    container_name: nginx
+  nginx:
+    build:
+      context: ./nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - ./app:/var/www/html
+    networks:
+      - app-network
     depends_on:
       - app
+
+  db:
+    build:
+      context: ./db
     env_file: .env
-    build: ./nginx
-    volumes:
-      - ./app:/usr/share/nginx/html
-    networks:
-      - nginx_app
     ports:
-      #- "80:80"    # Redirection HTTP
-      - "3000:3000"  # Port HTTPS
-
-  app:
-    container_name: app
-    env_file: .env
-    volumes:
-      - ./app:/app
+      - "3306:3306"
     networks:
-      - nginx_app
-      - app_database
-    depends_on:
-      - database
-    build: ./app
-    restart: on-failure
+      - app-network
 
-  database:
-    container_name: database
-    env_file: .env
-    networks:
-      - app_database
-    build: ./database
-    volumes:
-      - postgres-data:/var/lib/postgresql/data
-    restart: unless-stopped
-
-# ----------- VOLUMES -----------
-
-volumes:
-  postgres-data:
+networks:
+  app-network:
+    driver: bridge
