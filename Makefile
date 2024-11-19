@@ -5,14 +5,10 @@ run:
 
 stop:
 	docker-compose stop
-	docker-compose down -v --remove-orphans
 
 clean: stop
+	docker-compose down -v --remove-orphans
 	docker system prune -af
-	sudo rm -rf frontend/node_modules
-	sudo rm -rf frontend/.angular
-	sudo rm -rf backend/node_modules
-	sudo rm -rf backend/dist
 
 re: clean all
 
