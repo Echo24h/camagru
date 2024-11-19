@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_URI'] === '/droptables') {
 require_once './session.php';
 
 // Route simple
-$page = $_SERVER['REQUEST_URI'];
+$page = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 if ($page === '/home' || $page === '/') {
     $controller = new HomeController();
@@ -30,6 +30,9 @@ if ($page === '/home' || $page === '/') {
 } elseif ($page === '/logout') {
     $controller = new AuthController();
     $controller->logout();
+} elseif ($page === '/verify') {
+    $controller = new AuthController();
+    $controller->verifyEmail();
 } else {
     echo "Page not found.";
 }

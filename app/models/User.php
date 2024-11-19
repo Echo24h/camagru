@@ -35,7 +35,7 @@ class User {
         // $this->db->exec($sqlInsert);
     }
 
-    public function register($username, $email, $password) {
+    public function register($username, $email, $password, $verificationToken) {
         // Vérifier si l'utilisateur existe déjà
         $stmt = $this->db->prepare("SELECT * FROM users WHERE email = :email");
         $stmt->execute(['email' => $email]);
@@ -49,12 +49,13 @@ class User {
         $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
         // Insérer l'utilisateur dans la base de données
-        $stmt = $this->db->prepare("INSERT INTO users (username, email, password) VALUES (:username, :email, :password)");
-        $stmt->execute(['username' => $username, 'email' => $email, 'password' => $passwordHash]);
+        $stmt = $this->db->prepare("INSERT INTO users (username, email, password, email_verification_token) VALUES (:username, :email, :password, :email_verification_token)");
+        $stmt->execute(['username' => $username, 'email' => $email, 'password' => $passwordHash, 'email_verification_token' => $verificationToken]);
 
         // Récupérer l'utilisateur nouvellement inséré
         $stmt = $this->db->prepare("SELECT * FROM users WHERE id = :id");
         $stmt->execute(['id' => $this->db->lastInsertId()]);
+        // Retourne l'utilisateur nouvellement inséré
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
@@ -83,5 +84,19 @@ class User {
     public function getAllUsers() {
         $stmt = $this->db->query("SELECT * FROM users");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function verifyEmail($userId, $token) {
+        $stmt = $this->db->prepare("SELECT * FROM users WHERE id = :id AND email_verification_token = :token");
+        $stmt->execute(['id' => $userId, 'token' => $token]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($user) {
+            $stmt = $this->db->prepare("UPDATE users SET email_verified = 1, email_verification_token = NULL WHERE id = :id");
+            $stmt->execute(['id' => $userId]);
+            return true;
+        }
+
+        return false;
     }
 }

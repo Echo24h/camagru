@@ -7,14 +7,15 @@ class AuthController {
 
     public function verifyEmail() {
 
-        if (isset($_GET['id'])) {
+        if (isset($_GET['id']) && isset($_GET['token'])) {
 
             $userId = $_GET['id'];
+            $token = $_GET['token'];
 
             $userModel = new User();
-            $user = $userModel->verifyEmail($userId);
+            $response = $userModel->verifyEmail($userId, $token);
 
-            if ($user) {
+            if ($response) {
                 $success = "Votre adresse e-mail a été vérifiée avec succès. Vous pouvez maintenant vous connecter.";
                 require_once './views/login.php';
             } else {
@@ -22,7 +23,8 @@ class AuthController {
                 require_once './views/login.php';
             }
         } else {
-            header("Location: /login");
+            $error = "Erreur lors de la vérification de l'adresse e-mail.";
+            require_once './views/login.php';
         }
     }
 
@@ -64,10 +66,10 @@ class AuthController {
 
             $userModel = new User();
             $verificationToken = generateVerificationToken();
-            sendVerificationEmail($email, $verificationToken);
-            $user = $userModel->register($username, $email, $password, $verificationToken);
 
+            $user = $userModel->register($username, $email, $password, $verificationToken);
             if ($user) {
+                sendVerificationEmail($user['id'], $email, $verificationToken);
                 $success = "Inscription réussie. Veuillez vérifier votre adresse e-mail pour activer votre compte.";
                 require_once './views/login.php';
             } else {

@@ -1,21 +1,22 @@
 <?php
 
-function sendVerificationEmail($email, $token) {
+function sendVerificationEmail($userId, $email, $token) {
 
     // Remplace par tes propres clés API
     $apiKey = $_ENV['MAILJET_API_KEY'];
-    $apiSecret = $_ENV['MAILJET_API_SECRET'];
+    $apiSecret = $_ENV['MAILJET_SECRET_KEY'];
 
     // URL de l'API Mailjet
     $url = 'https://api.mailjet.com/v3.1/send';
 
+    $link = 'http://localhost:8080/verify?token=' . $token . '&id=' . $userId;
     // Données de l'email
     $data = [
         'Messages' => [
             [
                 'From' => [
-                    'Email' => $_ENV['MAILJET_SENDER_EMAIL'],
-                    'Name' => 'App Getting Started'
+                    'Email' => $_ENV['MAILJET_FROM_EMAIL'],
+                    'Name' => 'Camagru (42 Project)'
                 ],
                 'To' => [
                     [
@@ -23,10 +24,10 @@ function sendVerificationEmail($email, $token) {
                         'Name' => 'Gregory Borne'
                     ]
                 ],
-                'Subject' => 'Test Email avec Mailjet',
-                'TextPart' => 'Token de vérification : ' . $token,
-                'HTMLPart' => '<h3>Bonjour, ceci est un <strong>test</strong> d\'envoi d\'email via Mailjet en PHP.</h3>',
-                'CustomID' => 'AppGettingStartedTest'
+                'Subject' => 'Confirmation de votre adresse e-mail',
+                'TextPart' => '',
+                'HTMLPart' => '<p>Bonjour,</p><p>Cliquez sur le lien suivant pour valider votre adresse e-mail :</p><p><a href="' . $link .'">' . $link . '</a></p><p>Si vous n\'avez pas demandé cette inscription, ignorez ce message.</p>',
+                 'CustomID' => 'AppGettingStartedTest'
             ]
         ]
     ];

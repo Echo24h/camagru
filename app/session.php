@@ -7,9 +7,9 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-$page = $_SERVER['REQUEST_URI'];
+$page = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
-if (!isset($_SESSION['username']) && $page !== '/login' && $page !== '/register') {
+if (!isset($_SESSION['username']) && $page !== '/login' && $page !== '/register' && $page !== '/verify') {
     header("Location: /login");
     exit;
 }
