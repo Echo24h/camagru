@@ -1,14 +1,24 @@
 version: '3.8'
 
 services:
-  app:
+
+  db:
     build:
-      context: ./app
+      context: ./db
+    env_file: .env
+    ports:
+      - "3306:3306"
+    networks:
+      - camagru-network
+
+  camagru:
+    build:
+      context: ./camagru
     env_file: .env
     volumes:
-      - ./app:/var/www/html
+      - ./camagru:/var/www/html
     networks:
-      - app-network
+      - camagru-network
     ports:
       - "9000:9000"
     depends_on:
@@ -20,21 +30,12 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - ./app:/var/www/html
+      - ./camagru:/var/www/html
     networks:
-      - app-network
+      - camagru-network
     depends_on:
-      - app
-
-  db:
-    build:
-      context: ./db
-    env_file: .env
-    ports:
-      - "3306:3306"
-    networks:
-      - app-network
+      - camagru
 
 networks:
-  app-network:
+  camagru-network:
     driver: bridge

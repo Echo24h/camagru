@@ -1,5 +1,47 @@
 # camagru (EN CONSTRUCTION)
 
+## Structure de base
+```arduino
+camagru/
+├── app/
+│   ├── Controllers/
+│   │   ├── HomeController.php
+│   │   └── UserController.php
+│   ├── Models/
+│   │   ├── User.php
+│   │   └── Post.php
+│   ├── Views/
+│   │   ├── layouts/
+│   │   │   └── main.php
+│   │   ├── home/
+│   │   │   └── index.php
+│   │   └── user/
+│   │       └── profile.php
+├── public/
+│   ├── index.php
+│   ├── css/
+│   │   └── style.css
+│   └── js/
+│       └── app.js
+├── config/
+│   ├── config.php
+│   └── database.php
+├── core/
+│   ├── Router.php
+│   ├── Controller.php
+│   ├── Model.php
+│   ├── View.php
+│   └── Database.php
+├── vendor/
+├── .env
+├── composer.json
+└── README.md
+```
+
+Dans `camagru/` :
+```shell
+composer install --no-dev --optimize-autoloader
+```
 
 ## Ressources
 
