@@ -54,7 +54,6 @@ class Mail {
     
             // Vérifier si l'email a été envoyé avec succès
             if (isset($responseData['Messages'][0]['Status']) && $responseData['Messages'][0]['Status'] == 'success') {
-                echo 'Email envoyé avec succès !';
                 curl_close($ch);
                 return true;
             } else {

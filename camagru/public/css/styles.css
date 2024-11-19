@@ -7,10 +7,16 @@ body {
     padding: 0;
 }
 
+.logo {
+    height: 150px;
+    margin: 0 auto;
+    display: block;
+}
+
 h1 {
     text-align: center;
     color: #4CAF50;
-    margin-top: 50px;
+    margin-top: -30px;
 }
 
 /* Centering the form */

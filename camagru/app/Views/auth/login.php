@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+
+    <img class ="logo" src="logo.png" alt="Logo" type="image/png">
     <h1>Connexion</h1>
 
     <div class="container">

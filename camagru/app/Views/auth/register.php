@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/css/styles.css" type="text/css">
 </head>
 <body>
+    <img class ="logo" src="logo.png" alt="Logo" type="image/png">
     <h1>Inscription</h1>
 
     <div class="container">
