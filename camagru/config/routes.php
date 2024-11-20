@@ -1,11 +1,12 @@
 <?php
 
 return [
-    '' => 'HomeController@index',
+    '' => 'EditorController@index',
     'user/profile' => 'UserController@profile',
     'login' => 'AuthController@login',
     'logout' => 'AuthController@logout',
     'register' => 'AuthController@register',
     'verify-email' => 'AuthController@verifyEmail',
-    'forgot' => 'AuthController@forgot',
+    'image/save' => 'ImageController@save',
+    'image/delete' => 'ImageController@delete',
 ];

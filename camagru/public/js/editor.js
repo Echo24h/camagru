@@ -85,26 +85,95 @@ imageUpload.addEventListener('change', function(event) {
 });
 
 // Ajouter un écouteur d'événement sur le bouton "submit"
-submitButton.addEventListener('click', function() {
-    // Récupérer toutes les images dans l'éditeur
+submitButton.addEventListener('click', function () {
+    // récupérer toutes les images
     const images = editorInterface.querySelectorAll('img');
-    
-    // Si une image existe, on l'envoie
-    if (images.length > 0) {
-        const base64Image = images[0].src; // On suppose qu'on envoie la première image ajoutée
 
-        // Créer une requête AJAX pour envoyer l'image au serveur
-        const xhr = new XMLHttpRequest();
-        xhr.open("POST", "upload_image.php", true);
-        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    if (images.length === 0) {
+        console.error("Aucune image trouvée dans l'éditeur.");
+        return;
+    }
 
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                console.log("Image envoyée et sauvegardée dans la base de données.");
+    // Créer un canvas
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+
+    // Récupérer les dimensions du conteneur
+    const rect = editorInterface.getBoundingClientRect();
+    canvas.width = rect.width;
+    canvas.height = rect.height;
+
+    // Dessiner l'arrière-plan
+    ctx.fillStyle = window.getComputedStyle(editorInterface).backgroundColor || "#ffffff";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Charger et dessiner chaque image
+    let imagesLoaded = 0;
+    images.forEach((img) => {
+        const imgRect = img.getBoundingClientRect();
+
+        // Créer une nouvelle image pour charger les données
+        const tempImage = new Image();
+        tempImage.crossOrigin = "anonymous"; // Gérer les restrictions CORS pour les images externes
+        tempImage.src = img.src;
+
+        tempImage.onload = function () {
+            // Dessiner l'image à la position relative
+            ctx.drawImage(tempImage, imgRect.left - rect.left, imgRect.top - rect.top, imgRect.width, imgRect.height);
+
+            // Vérifier si toutes les images ont été chargées et dessinées
+            imagesLoaded++;
+            if (imagesLoaded === images.length) {
+                // Convertir le canvas en Base64 une fois toutes les images chargées
+                const base64Image = canvas.toDataURL('image/png');
+
+                // Envoyer l'image au serveur
+                const xhr = new XMLHttpRequest();
+                xhr.open("POST", "image/save", true);
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+                xhr.onload = function() {
+                    if (xhr.status === 200) {
+                        window.location.href = "/";
+                    }
+                    else {
+                        console.error("Erreur lors de l'envoi de l'image.");
+                    }
+                };
+                xhr.send("image=" + encodeURIComponent(base64Image));
             }
         };
+        tempImage.onerror = function () {
+            console.error("Impossible de charger l'image : ", img.src);
+        };
+    });
+});
 
-        // Envoyer l'image en Base64
-        xhr.send("image=" + encodeURIComponent(base64Image));
-    }
+// Fonction pour supprimer l'image avec AJAX
+document.querySelectorAll('.delete-image').forEach(button => {
+    button.addEventListener('click', function() {
+        const imageContainer = this.closest('.edited-image');
+        const imageId = imageContainer.getAttribute('data-id');
+        console.log("Suppression de l'image avec l'ID :", imageId);
+
+        // Créer une requête AJAX pour supprimer l'image
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', 'image/delete?id=' + imageId, true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+        // Quand la requête est terminée
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                // Vérifier la réponse du serveur
+                if (xhr.responseText === 'success') {
+                    // Supprimer l'élément image du DOM si la suppression est réussie
+                    imageContainer.remove();
+                } else {
+                    alert("Erreur lors de la suppression de l'image.");
+                }
+            }
+        };
+        // Envoyer les données
+        xhr.send('id=' + encodeURIComponent(imageId));
+    });
 });

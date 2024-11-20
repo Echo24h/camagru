@@ -98,18 +98,47 @@ input[type="file"] {
 .sticker {
     width: auto;
     height: 200px;
-    cursor: pointer;
+    cursor: pointer;    
 }
 
 .image-thumbnails {
     display: flex;
-    gap: 10px;
+    flex-wrap: wrap; /* Permet de retourner à la ligne si nécessaire */
+    gap: 10px; /* Espacement entre les div */
+    justify-content: space-between; /* Répartit l'espace disponible */
+}
+
+/* Div enfants */
+.edited-image {
+    flex: 1 1 calc(33.33% - 10px); /* Largeur d'un tiers moins l'espace de l'écart */
+    height: 200px;
+    max-width: 380px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    margin-bottom: 50px;
+}
+
+/* Ajustement pour les petits écrans */
+@media (max-width: 600px) {
+    .edited-image {
+        flex: 1 1 calc(50% - 10px); /* Passe à deux colonnes */
+    }
+}
+
+@media (max-width: 400px) {
+    .edited-image {
+        flex: 1 1 100%; /* Passe à une seule colonne */
+    }
 }
 
 .thumbnail {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
+    min-height: 200px;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
     cursor: pointer;
 }
 

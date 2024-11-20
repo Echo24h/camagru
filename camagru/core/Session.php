@@ -8,9 +8,6 @@ class Session {
         '/login',
         '/register',
         '/verify-email',
-        '/forgot-password',
-        '/reset-password',
-        '/css/styles.css',
     ];
     
     public static function start() {

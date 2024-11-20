@@ -23,6 +23,12 @@
         <div class="container">
             <div class="editor">
 
+                <!-- Save and Download -->
+                <div class="actions">
+                    <button id="save-image">Sauvegarder l'image</button>
+                    <button id="download-image" disabled>Télécharger l'image</button>
+                </div>
+
                 <div class="editor-interface">
 
                 </div>
@@ -55,15 +61,16 @@
                 <div class="edited-images">
                     <h2>Images Éditées</h2>
                     <div class="image-thumbnails">
-                        <img src="image1-thumbnail.jpg" alt="Image 1" class="thumbnail">
-                        <img src="image2-thumbnail.jpg" alt="Image 2" class="thumbnail">
+                        <?php 
+                        foreach ($images as $image) {
+                            echo '<div class="edited-image" data-id="' . $image['id'] . '" >';
+                            echo '<img src="' . $image['data'] . '" alt="Image" class="thumbnail">';
+                            echo '<button class="delete-image">Supprimer</button>';
+                            echo '</div>';
+                        }
+                        ?>
                     </div>
-                </div>
 
-                <!-- Save and Download -->
-                <div class="actions">
-                    <button id="save-image">Sauvegarder l'image</button>
-                    <button id="download-image" disabled>Télécharger l'image</button>
                 </div>
 
                 <!-- Webcam Preview -->
