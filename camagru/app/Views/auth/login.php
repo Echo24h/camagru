@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Connexion</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/styles.css" type="text/css">
 </head>
 <body>
 
-    <img class ="logo" src="logo.png" alt="Logo" type="image/png">
+    <img class ="logo" src="img/logo.png" alt="Logo" type="image/png">
     <h1>Connexion</h1>
 
     <div class="container">
@@ -21,10 +21,10 @@
 
         <form action="/login" method="POST">
             <label for="email">Email :</label>
-            <input type="text" id="email" name="email" required>
+            <input type="text" id="email" name="email" autocomplete="email" required>
 
             <label for="password">Mot de passe :</label>
-            <input type="password" id="password" name="password" required>
+            <input type="password" id="password" name="password" autocomplete="current-password" required>
 
             <button type="submit">Se connecter</button>
         </form>

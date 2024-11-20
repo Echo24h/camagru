@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/css/styles.css" type="text/css">
 </head>
 <body>
-    <img class ="logo" src="logo.png" alt="Logo" type="image/png">
+    <img class ="logo" src="img/logo.png" alt="Logo" type="image/png">
     <h1>Inscription</h1>
 
     <div class="container">
@@ -18,13 +18,13 @@
 
         <form action="/register" method="POST">
             <label for="username">Nom d'utilisateur :</label>
-            <input type="text" id="username" name="username" required>
+            <input type="text" id="username" name="username" autocomplete="username" required>
 
             <label for="email">Adresse e-mail :</label>
-            <input type="email" id="email" name="email" required>
+            <input type="email" id="email" name="email" autocomplete="email" required>
 
             <label for="password">Mot de passe :</label>
-            <input type="password" id="password" name="password" required>
+            <input type="password" id="password" name="password" autocomplete="new-password" required>
 
             <button type="submit">S'inscrire</button>
         </form>

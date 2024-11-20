@@ -29,11 +29,12 @@ class AuthController extends Controller {
 
             if ($user) {
 
+
+
                 if (!User::isEmailVerified($email)) {
                     $this->render('auth/login', ['error' => 'Veuillez vérifier votre adresse e-mail pour activer votre compte']);
                     return;
                 }
-                
                 Session::set('user_id', $user['id']);
                 Session::set('username', $user['username']);
                 Session::set('email', $user['email']);

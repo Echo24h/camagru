@@ -71,7 +71,7 @@ class Mail {
         $subject = 'Confirmation de votre adresse e-mail';
         $user = User::findById($userId);
         $token = $user['email_verification_token'];
-        $link = "http://" . $_ENV['DOMAIN'] . "/verify-email?token=$token&id=$userId";
+        $link = $_ENV['DOMAIN'] . "/verify-email?token=$token&id=$userId";
 
         $content = "
             <p>Bonjour " . $user['username'] . ",</p>

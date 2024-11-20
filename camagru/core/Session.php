@@ -15,9 +15,14 @@ class Session {
     
     public static function start() {
         if (session_status() === PHP_SESSION_NONE) {
-            ini_set('session.cookie_secure', '1');  // Envoie uniquement les cookies sur HTTPS
-            ini_set('session.cookie_httponly', '1'); // Empêche l'accès des cookies via JavaScript
-            ini_set('session.use_strict_mode', '1'); // Rejette les cookies de session invalides
+            session_set_cookie_params([
+                'lifetime' => 3600,
+                'path' => '/',
+                'domain' => null,
+                'secure' => true,
+                'httponly' => true,
+                'samesite' => 'Strict',
+            ]);
             session_start();
         }
     }

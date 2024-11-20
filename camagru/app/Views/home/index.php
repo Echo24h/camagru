@@ -5,10 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Édition d'image</title>
     <link rel="stylesheet" href="/css/home.css" type="text/css">
+    <script src="/js/webcam.js" defer></script>
+    <script src="/js/editor.js" defer></script>
 </head>
 <body>
     <header>
-        <img class="logo" src="logo.png" alt="Logo" type="image/png">
+        <img class="logo" src="img/logo.png" alt="Logo" type="image/png">
         <h1>Édition d'image</h1>
         <div id="container-profil">
             <p>Hello <?= htmlspecialchars($_SESSION['username']) ?> !</p>
@@ -20,11 +22,9 @@
     <main>
         <div class="container">
             <div class="editor">
-                <!-- Webcam Preview -->
-                <div class="webcam-preview">
-                    <h2>Prévisualisation Webcam</h2>
-                    <video id="webcam" width="100%" height="auto" autoplay></video>
-                    <button id="start-webcam">Démarrer Webcam</button>
+
+                <div class="editor-interface">
+
                 </div>
 
                 <!-- Image Upload -->
@@ -37,9 +37,17 @@
                 <div class="stickers">
                     <h2>Autocollants</h2>
                     <div class="sticker-list">
-                        <img src="sticker1.png" alt="Sticker 1" class="sticker">
-                        <img src="sticker2.png" alt="Sticker 2" class="sticker">
-                        <img src="sticker3.png" alt="Sticker 3" class="sticker">
+                        <?php
+                        // Le code PHP pour lister et afficher les stickers
+                        $stickerDirectory = 'img/stickers/';
+                        $stickers = array_diff(scandir($stickerDirectory), array('..', '.')); // Ignorer '.' et '..'
+
+                        foreach ($stickers as $sticker) {
+                            echo '<div class="sticker">';
+                            echo '<img src="' . $stickerDirectory . $sticker . '" alt="Sticker">';
+                            echo '</div>';
+                        }
+                        ?>
                     </div>
                 </div>
 
@@ -54,8 +62,15 @@
 
                 <!-- Save and Download -->
                 <div class="actions">
-                    <button id="save-image" disabled>Sauvegarder l'image</button>
+                    <button id="save-image">Sauvegarder l'image</button>
                     <button id="download-image" disabled>Télécharger l'image</button>
+                </div>
+
+                <!-- Webcam Preview -->
+                <div class="webcam-preview">
+                    <h2>Prévisualisation Webcam</h2>
+                    <video id="webcam" width="100%" height="auto" autoplay></video>
+                    <button id="start-webcam">Démarrer Webcam</button>
                 </div>
             </div>
         </div>
