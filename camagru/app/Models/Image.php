@@ -63,5 +63,9 @@ class Image extends Model {
         return $stmt->execute(['id' => $id, 'total_likes' => $total_likes]);
     }
 
-
+    public static function updateComments($id, $total_comments) {
+        $db = self::getDB();
+        $stmt = $db->prepare("UPDATE images SET total_comments = total_comments + :total_comments WHERE id = :id");
+        return $stmt->execute(['id' => $id, 'total_comments' => $total_comments]);
+    }
 }

@@ -44,7 +44,7 @@
                 <ul class="comment-list">
                     <?php foreach ($comments as $comment): ?>
                         <li class="comment-item">
-                            <strong><?php echo $comment['username']; ?>:</strong> <?php echo $comment['text']; ?>
+                            <strong><?php echo $comment['username']; ?>:</strong> <?php echo $comment['content']; ?>
                         </li>
                     <?php endforeach; ?>
                 </ul>
@@ -56,9 +56,8 @@
         <!-- Formulaire de commentaire -->
         <div class="comment-form">
             <h3>Ajouter un Commentaire</h3>
-            <form method="POST" action="/image/comment?id=<?php echo $image_id; ?>">
-                <label for="username">Nom d'utilisateur:</label>
-                <input type="text" name="username" id="username" required>
+            <form method="POST" action="/image/comment">
+                <input type="hidden" name="id" value="<?php echo $image['id']; ?>">
                 <label for="comment">Commentaire:</label>
                 <textarea name="comment" id="comment" required></textarea>
                 <button type="submit">Ajouter un commentaire</button>

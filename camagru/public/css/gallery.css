@@ -76,11 +76,19 @@ h1 {
     margin-right: 5px;
 }
 
-.likes, .comments {
+.likes {
     width: 20px;
     height: 20px;
     display: flex;
     align-items: center;
+}
+
+.comments a {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
 }
 
 @media screen and (max-width: 768px) {

@@ -4,6 +4,8 @@ namespace App\Controllers;
 
 use Core\Controller;
 use App\Models\Image;
+use App\Models\Comment;
+use App\Models\User;
 
 class GalleryController extends Controller {
 
@@ -42,9 +44,18 @@ class GalleryController extends Controller {
             return;
         }
 
-        $this->render('gallery/show',
+        $comments = Comment::findByImageId($id);
+        $new_comments = [];
+
+        foreach ($comments as $comment) {
+            $comment['username'] = User::findById($comment['user_id'])['username'];
+            $new_comments[] = $comment;
+        }
+
+        $this->render('/gallery/show',
             [   
                 'image' => $image,
+                'comments' => $new_comments
             ]
         );
     }
