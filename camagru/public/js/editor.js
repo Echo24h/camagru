@@ -174,7 +174,7 @@ function handleDeleteImage(button) {
 // Fonction pour supprimer l'image avec AJAX
 function deleteImage(imageId, imageContainer) {
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', 'image/delete?id=' + imageId, true);
+    xhr.open('POST', 'image/delete', true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.onload = function() {
         if (xhr.status === 200 && xhr.responseText === 'success') {

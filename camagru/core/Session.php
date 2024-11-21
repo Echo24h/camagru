@@ -8,6 +8,11 @@ class Session {
         '/login',
         '/register',
         '/verify-email',
+        '/gallery',
+        '/gallery/show',
+        '/image/like',
+        '/image/comment',
+        '/404',
     ];
     
     public static function start() {

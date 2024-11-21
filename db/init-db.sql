@@ -23,7 +23,6 @@ CREATE TABLE IF NOT EXISTS images (
     total_comments INT DEFAULT 0,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 -- Créer une table 'comments'
@@ -33,8 +32,6 @@ CREATE TABLE IF NOT EXISTS comments (
     image_id INT NOT NULL,
     content TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-    FOREIGN KEY (image_id) REFERENCES images(id) ON DELETE CASCADE
 );
 
 -- Créer une table 'likes'
@@ -43,6 +40,4 @@ CREATE TABLE IF NOT EXISTS likes (
     user_id INT NOT NULL,
     image_id INT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-    FOREIGN KEY (image_id) REFERENCES images(id) ON DELETE CASCADE
 );

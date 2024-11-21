@@ -9,5 +9,9 @@ return [
     'verify-email' => 'AuthController@verifyEmail',
     'image/save' => 'ImageController@save',
     'image/delete' => 'ImageController@delete',
-    'galery' => 'GaleryController@index',
+    'image/like' => 'ImageController@like',
+    'image/comment' => 'ImageController@comment',
+    'gallery' => 'GalleryController@index',
+    'gallery/show' => 'GalleryController@show',
+    '404' => 'ErrorController@notFound',
 ];

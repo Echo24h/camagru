@@ -43,4 +43,25 @@ class Image extends Model {
         $stmt = $db->prepare("DELETE FROM images WHERE id = :id");
         return $stmt->execute(['id' => $id]);
     }
+
+    public static function comment($id, $comment) {
+        $db = self::getDB();
+        $stmt = $db->prepare("UPDATE images SET comments = JSON_ARRAY_APPEND(comments, '$', :comment) WHERE id = :id");
+        return $stmt->execute(['id' => $id, 'comment' => $comment]);
+    }
+
+    public static function getLikes($id) {
+        $db = self::getDB();
+        $stmt = $db->prepare("SELECT likes FROM images WHERE id = :id");
+        $stmt->execute(['id' => $id]);
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
+
+    public static function updateLikes($id, $total_likes) {
+        $db = self::getDB();
+        $stmt = $db->prepare("UPDATE images SET total_likes = total_likes + :total_likes WHERE id = :id");
+        return $stmt->execute(['id' => $id, 'total_likes' => $total_likes]);
+    }
+
+
 }

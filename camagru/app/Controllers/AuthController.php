@@ -11,6 +11,11 @@ class AuthController extends Controller {
     
     public function login() {
 
+        if (Session::get('user_id')) {
+            header('Location: /');
+            return;
+        }
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $email = $_POST['email'];
             $password = $_POST['password'];
@@ -50,6 +55,11 @@ class AuthController extends Controller {
 
 
     public function register() {
+
+        if (Session::get('user_id')) {
+            header('Location: /');
+            return;
+        }
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $username = $_POST['username'];
