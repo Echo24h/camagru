@@ -23,7 +23,7 @@
         <!-- Informations sur l'image -->
         <div class="image-info">
             <div class="creator">
-                Créée par: <a href="<?php echo $image['username']; ?>"><?php echo $image['username']; ?></a>
+                Créée par: <a href="/<?php echo $image['username']; ?>"><?php echo $image['username']; ?></a>
             </div>
             <?php
                 echo '<div class="likes" data-id="' . $image['id'] . '">';

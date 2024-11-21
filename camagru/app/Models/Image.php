@@ -8,10 +8,9 @@ class Image extends Model {
 
     public static function create($user, $data) {
         $db = self::getDB();
-        $stmt = $db->prepare("INSERT INTO images (name, username, user_id, data) VALUES (:name, :username, :user_id, :data)");
+        $stmt = $db->prepare("INSERT INTO images (name, user_id, data) VALUES (:name, :user_id, :data)");
         $stmt->execute([
             'name' => 'default',
-            'username' => $user['username'],
             'user_id' => $user['id'],
             'data' => $data
         ]);

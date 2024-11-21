@@ -14,31 +14,42 @@
         <a href="/">Editeur</a>
     </header>
 
-    <div class="gallery-container">
-        <?php
-        // Le code PHP pour lister et afficher les images
-        foreach ($images as $image) {
-            echo '<div class="gallery-item" data-id="' . $image['id'] . '">';
-            // Clic sur l'image redirige vers la page show
-            echo '<a href="/gallery/show?id=' . $image['id'] . '"><img class="picture" src="' . $image['data'] . '" alt="Image"></a>';
-            echo '<div class="item-info">';
-            // Créateur avec lien
-            echo '<div class="creator"><a href="' . $image['username'] . '">' . $image['username'] . '</a></div>';
-            // Clic sur les commentaires redirige vers la page show
-            echo '<div class="comments"><a href="/gallery/show?id=' . $image['id'] . '"><img class="icon" src="img/comment.svg" alt="Commentaire"> ' . $image['total_comments'] . '</a></div>';
-            // J'aime avec clic AJAX
-            echo '<div class="likes" data-id="' . $image['id'] . '">';
-            if ($image['total_likes'] > 0) {
-                echo '<p>' . $image['total_likes'] . '</p>';
-                echo '<img class="icon" src="img/like.svg" alt="J\'aime">';   
-            } else {
-                echo '<img class="icon" src="img/like_empty.svg" alt="J\'aime">';
-            }
-            echo '</div>';
-            echo '</div>';
+    
+    <?php
+        if ($images === null || empty($images)) {
+            echo '<div class=no-content>';
+            echo '<p>Aucune image pour l\'instant</p>';
+            echo '<a href="/">Publier la première image !</a>';
             echo '</div>';
         }
+        else {
+            echo '<div class="gallery-container">';
+        
+            foreach ($images as $image) {
+                echo '<div class="gallery-item" data-id="' . $image['id'] . '">';
+                // Clic sur l'image redirige vers la page show
+                echo '<a href="/gallery/show?id=' . $image['id'] . '"><img class="picture" src="' . $image['data'] . '" alt="Image"></a>';
+                echo '<div class="item-info">';
+                // Créateur avec lien
+                echo '<div class="creator"><a href="' . $image['username'] . '">' . $image['username'] . '</a></div>';
+                // Clic sur les commentaires redirige vers la page show
+                echo '<div class="comments"><a href="/gallery/show?id=' . $image['id'] . '"><img class="icon" src="img/comment.svg" alt="Commentaire"> ' . $image['total_comments'] . '</a></div>';
+                // J'aime avec clic AJAX
+                echo '<div class="likes" data-id="' . $image['id'] . '">';
+                if ($image['total_likes'] > 0) {
+                    echo '<p>' . $image['total_likes'] . '</p>';
+                    echo '<img class="icon" src="img/like.svg" alt="J\'aime">';   
+                } else {
+                    echo '<img class="icon" src="img/like_empty.svg" alt="J\'aime">';
+                }
+                echo '</div>';
+                echo '</div>';
+                echo '</div>';
+            }
+            echo '</div>';
+        }
+        // Le code PHP pour lister et afficher les images
         ?>
-    </div>
+    
 </body>
 </html>

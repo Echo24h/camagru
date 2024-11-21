@@ -91,6 +91,12 @@ h1 {
     text-decoration: none;
 }
 
+.no-content {
+    text-align: center;
+    margin-top: 100px;
+    width: 100%;
+}
+
 @media screen and (max-width: 768px) {
     header {
         padding: 10px;
