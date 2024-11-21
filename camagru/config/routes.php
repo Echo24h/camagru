@@ -9,4 +9,5 @@ return [
     'verify-email' => 'AuthController@verifyEmail',
     'image/save' => 'ImageController@save',
     'image/delete' => 'ImageController@delete',
+    'galery' => 'GaleryController@index',
 ];

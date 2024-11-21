@@ -14,6 +14,7 @@
         <h1>Édition d'image</h1>
         <div id="container-profil">
             <p>Hello <?= htmlspecialchars($_SESSION['username']) ?> !</p>
+            <a href="/galery">Galerie</a>
             <a href="/profil">Profil</a>
             <a href="/logout"> Déconnexion</a>
         </div>

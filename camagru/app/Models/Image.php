@@ -6,12 +6,13 @@ use Core\Model;
 
 class Image extends Model {
 
-    public static function create($userId, $data) {
+    public static function create($user, $data) {
         $db = self::getDB();
-        $stmt = $db->prepare("INSERT INTO images (name, user_id, data) VALUES (:name, :user_id, :data)");
+        $stmt = $db->prepare("INSERT INTO images (name, username, user_id, data) VALUES (:name, :username, :user_id, :data)");
         $stmt->execute([
             'name' => 'default',
-            'user_id' => $userId,
+            'username' => $user['username'],
+            'user_id' => $user['id'],
             'data' => $data
         ]);
         return $db->lastInsertId();
@@ -19,13 +20,13 @@ class Image extends Model {
 
     public static function getAll() {
         $db = self::getDB();
-        $stmt = $db->query("SELECT * FROM images");
+        $stmt = $db->query("SELECT * FROM images ORDER BY id DESC");
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     public static function findByUserId($userId) {
         $db = self::getDB();
-        $stmt = $db->prepare("SELECT * FROM images WHERE user_id = :user_id");
+        $stmt = $db->prepare("SELECT * FROM images WHERE user_id = :user_id ORDER BY id DESC");
         $stmt->execute(['user_id' => $userId]);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }

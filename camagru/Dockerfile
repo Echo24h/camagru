@@ -13,6 +13,9 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install gd pdo pdo_mysql
 
+# Copier le fichier php.ini personnalisé
+COPY php.ini /usr/local/etc/php/
+
 # Définir le répertoire de travail
 WORKDIR /var/www/html
 
