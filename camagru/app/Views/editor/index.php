@@ -47,11 +47,11 @@
                         <?php
                         // Le code PHP pour lister et afficher les stickers
                         $stickerDirectory = 'img/stickers/';
-                        $stickers = array_diff(scandir($stickerDirectory), array('..', '.')); // Ignorer '.' et '..'
+                        $stickers = array_diff(scandir(htmlspecialchars($stickerDirectory)), array('..', '.')); // Ignorer '.' et '..'
 
                         foreach ($stickers as $sticker) {
                             echo '<div class="sticker">';
-                            echo '<img src="' . $stickerDirectory . $sticker . '" alt="Sticker">';
+                            echo '<img src="' . htmlspecialchars($stickerDirectory) . htmlspecialchars($sticker) . '" alt="Sticker">';
                             echo '</div>';
                         }
                         ?>
@@ -64,8 +64,8 @@
                     <div class="image-thumbnails">
                         <?php 
                         foreach ($images as $image) {
-                            echo '<div class="edited-image" data-id="' . $image['id'] . '" >';
-                            echo '<img src="' . $image['data'] . '" alt="Image" class="thumbnail">';
+                            echo '<div class="edited-image" data-id="' . htmlspecialchars($image['id']) . '" >';
+                            echo '<img src="' . htmlspecialchars($image['data']) . '" alt="Image" class="thumbnail">';
                             echo '<button class="delete-image">Supprimer</button>';
                             echo '</div>';
                         }

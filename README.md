@@ -1,5 +1,14 @@
 # camagru (EN CONSTRUCTION)
 
+## A faire
+
+- Refonte Design HTML CSS
+- Protection token CSRF
+- Page profil
+- MDP oublié
+- Settings profil
+- Notification commentaire
+
 ## Structure de base
 ```arduino
 camagru/

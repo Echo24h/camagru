@@ -18,8 +18,6 @@ class EditorController extends Controller {
         }
 
         $this->render('editor/index', [
-            'message' => 'Bienvenue dans MVC',
-            'users' => User::getAll(),
             'images' => $images
         ]);
     }

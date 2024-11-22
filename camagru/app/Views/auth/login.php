@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Connexion</title>
-    <link rel="stylesheet" href="css/styles.css" type="text/css">
+    <link rel="stylesheet" href="/css/styles.css" type="text/css">
 </head>
 <body>
 
-    <img class ="logo" src="img/logo.png" alt="Logo" type="image/png">
+    <img class ="logo" src="/img/logo.png" alt="Logo" type="image/png">
     <h1>Connexion</h1>
 
     <div class="container">
