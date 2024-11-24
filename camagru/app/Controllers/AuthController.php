@@ -53,7 +53,6 @@ class AuthController extends Controller {
         $this->render('auth/login');
     }
 
-
     public function register() {
 
         if (Session::get('user_id')) {
@@ -142,6 +141,98 @@ class AuthController extends Controller {
             $this->render('error/404');
             return;
         }
+    }
+
+    public function forgotPassword() {
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $email = $_POST['email'];
+
+            if (!$email) {
+                $this->render('auth/forgot-password', ['error' => 'Veuillez entrer votre adresse e-mail']);
+                return;
+            }
+
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $this->render('auth/forgot-password', ['error' => 'Adresse email invalide']);
+                return;
+            }
+
+            $user = User::findByEmail($email);
+
+            if ($user) {
+                if (!User::isEmailVerified($email)) {
+                    $this->render('auth/forgot-password', ['error' => 'Veuillez vérifier votre adresse e-mail pour réinitialiser votre mot de passe']);
+                    return;
+                }
+                if (!User::createPasswordResetToken($user['id'])) {
+                    $this->render('auth/forgot-password', ['error' => 'Erreur lors de la réinitialisation du mot de passe']);
+                    return;
+                }
+                if (Mail::sendResetPasswordEmail($user['id'])) {
+                    $this->render('auth/login', ['success' => 'Un e-mail de réinitialisation de mot de passe a été envoyé']);
+                    return;
+                } else {
+                    $this->render('auth/forgot-password', ['error' => 'Erreur lors de la réinitialisation du mot de passe']);
+                    return;
+                }
+            } else {
+                $this->render('auth/forgot-password', ['error' => 'Adresse email invalide']);
+                return;
+            }
+        }
+        $this->render('auth/forgot-password');
+    }
+
+    public function resetPassword() {
+        if (isset($_GET['id']) && isset($_GET['token'])) {
+            $userId = $_GET['id'];
+            $token = $_GET['token'];
+    
+            $user = User::findById($userId);
+    
+            if ($user && $user['password_reset_token'] === $token) {
+                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                    $password = $_POST['password'];
+    
+                    if (!$password) {
+                        $this->render('auth/reset-password', [
+                            'error' => 'Veuillez entrer un nouveau mot de passe',
+                            'id' => $userId,
+                            'token' => $token
+                        ]);
+                        return;
+                    }
+                    if (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/', $password)) {
+                        $this->render('auth/reset-password', [
+                            'error' => 'Le mot de passe doit contenir au moins 8 caractères, une lettre majuscule, une lettre minuscule et un chiffre',
+                            'id' => $userId,
+                            'token' => $token
+                        ]);
+                        return;
+                    }
+    
+                    if (User::updatePassword($user['id'], $password)) {
+                        $this->render('auth/login', ['success' => 'Mot de passe réinitialisé avec succès']);
+                        return;
+                    } else {
+                        $this->render('auth/reset-password', [
+                            'error' => 'Erreur lors de la réinitialisation du mot de passe',
+                            'id' => $userId,
+                            'token' => $token
+                        ]);
+                        return;
+                    }
+                }
+                $this->render('auth/reset-password', [
+                    'id' => $userId,
+                    'token' => $token
+                ]);
+                return;
+            }
+        }
+    
+        $this->render('error/404');
     }
 
 

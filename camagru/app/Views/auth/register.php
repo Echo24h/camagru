@@ -30,6 +30,7 @@
         </form>
 
         <p>Vous avez déjà un compte ? <a href="/login">Connectez-vous</a></p>
+        <p>Mot de passe oublié ? <a href="/forgot-password">Réinitialisez-le</a></p>
     </div>
 </body>
 </html>

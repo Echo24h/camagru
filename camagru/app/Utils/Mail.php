@@ -82,4 +82,20 @@ class Mail {
         return self::sendEmail($user['email'], $subject, $content);
     }
 
+    public static function sendResetPasswordEmail($userId) {
+
+        // Remplace par tes propres clés API
+        $subject = 'Réinitialisation de votre mot de passe';
+        $user = User::findById($userId);
+        $token = $user['password_reset_token'];
+        $link = $_ENV['DOMAIN'] . "/reset-password?token=$token&id=$userId";
+
+        $content = "
+            <p>Bonjour " . $user['username'] . ",</p>
+            <p>Vous avez demandé une réinitialisation de votre mot de passe. Veuillez cliquer sur le lien ci-dessous pour choisir un nouveau mot de passe :</p>
+            <a href=" . $link . ">" . $link . "</a>
+            <p>Si vous n'êtes pas à l'origine de cette demande, veuillez ignorer cet e-mail.</p>
+        ";
+        return self::sendEmail($user['email'], $subject, $content);
+    }
 }

@@ -5,9 +5,6 @@
 - Refonte Design HTML CSS
 - Protection token CSRF
 - Finir éditeur + faire coté serveur PHP et non client Javascript
-- Page profil
-- MDP oublié
-- Settings profil
 - Notification commentaire
 
 ## Structure de base

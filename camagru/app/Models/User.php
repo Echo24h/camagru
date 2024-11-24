@@ -71,30 +71,47 @@ class User extends Model {
         ]);
     }
 
-    public static function updatePassword($email, $password) {
+    public static function setNotification($id, $notifications) {
         $db = self::getDB();
-        $stmt = $db->prepare("UPDATE users SET password = :password WHERE email = :email");
+        $stmt = $db->prepare("UPDATE users SET notifications = :notifications WHERE id = :id");
+        return $stmt->execute([
+            'id' => $id,
+            'notifications' => $notifications
+        ]);
+    }
+
+    public static function setEmailVisibility($id, $email_visibility) {
+        $db = self::getDB();
+        $stmt = $db->prepare("UPDATE users SET email_visibility = :email_visibility WHERE id = :id");
+        return $stmt->execute([
+            'id' => $id,
+            'email_visibility' => $email_visibility
+        ]);
+    }
+
+    public static function updatePassword($userId, $password) {
+        $db = self::getDB();
+        $stmt = $db->prepare("UPDATE users SET password = :password, password_reset_token = NULL WHERE id = :userId");
         $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
         return $stmt->execute([
-            'email' => $email,
-            'password' => $hashedPassword,
+            'userId' => $userId,
+            'password' => $hashedPassword
         ]);
     }
 
-    public static function setPasswordResetToken($email) {
+    public static function createPasswordResetToken($userId) {
         $db = self::getDB();
-        $stmt = $db->prepare("UPDATE users SET password_reset_token = :token WHERE email = :email");
-        $stmt->execute([
-            'email' => $email,
-            'token' => Utils::generateToken()
+        $stmt = $db->prepare("UPDATE users SET password_reset_token = :password_reset_token WHERE id = :userId");
+        return $stmt->execute([
+            'userId' => $userId, // Correction ici
+            'password_reset_token' => Utils::generateToken()
         ]);
-        return $stmt->fetch(\PDO::FETCH_ASSOC)['password_reset_token'];
     }
 
-    public static function getPasswordResetToken($email) {
+    public static function getPasswordResetToken($userId) {
         $db = self::getDB();
-        $stmt = $db->prepare("SELECT password_reset_token FROM users WHERE email = :email");
-        $stmt->execute(['email' => $email]);
+        $stmt = $db->prepare("SELECT password_reset_token FROM users WHERE id = :userId");
+        $stmt->execute(['userId' => $userId]);
         $user = $stmt->fetch(\PDO::FETCH_ASSOC);
         return $user['password_reset_token'];
     }

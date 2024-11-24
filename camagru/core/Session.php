@@ -8,6 +8,8 @@ class Session {
         '/login',
         '/register',
         '/verify-email',
+        '/forgot-password',
+        '/reset-password',
         '/gallery',
         '/gallery/show',
         '/image/like',

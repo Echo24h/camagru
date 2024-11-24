@@ -48,7 +48,6 @@
             }
             echo '</div>';
         }
-        // Le code PHP pour lister et afficher les images
         ?>
     
 </body>

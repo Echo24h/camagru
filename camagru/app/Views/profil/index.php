@@ -14,8 +14,10 @@
         <a href="/">Editeur</a>
 
         <div class="user-info">
-            <p><? echo htmlspecialchars($user['email']); ?></p>
-            <p><? echo htmlspecialchars($user['created_at']); ?></p>
+            <?php if ($user['email_visibility'] == 1): ?>
+                <p><? echo htmlspecialchars($user['email']); ?></p>
+            <?php endif; ?>
+            <p>Inscrit le: <? echo htmlspecialchars(date('d/m/Y', strtotime($user['created_at']))); ?></p>
             <p>Nombre de likes reçu: <? echo htmlspecialchars($likes_received); ?></p>
         </div>
     </header>
@@ -24,7 +26,9 @@
         if ($images === null || empty($images)) {
             echo '<div class=no-content>';
             echo '<p>Aucune image pour l\'instant</p>';
-            echo '<a href="/">Publier la première image !</a>';
+            if ($user['id'] == $_SESSION['user_id']) {
+                echo '<a href="/">Publier la première image !</a>';
+            }
             echo '</div>';
         }
         else {

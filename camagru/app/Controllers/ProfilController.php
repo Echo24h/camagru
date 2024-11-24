@@ -5,6 +5,7 @@ namespace App\Controllers;
 use Core\Controller;
 use App\Models\Image;
 use App\Models\User;
+use Core\Session;
 
 class ProfilController extends Controller {
 
@@ -67,6 +68,11 @@ class ProfilController extends Controller {
                     $user['notifications'] = $notifications;
                     $this->updateUserNotifications($user);
                 }
+                else if (isset($_POST['email_visibility'])) {
+                    $email_visibility = $_POST['email_visibility'];
+                    $user['email_visibility'] = $email_visibility;
+                    $this->updateUserEmailVisibility($user);
+                }
                 // else if (isset($_POST['delete'])) {
                 //     User::delete($user['id']);
                 //     header('Location: /logout');
@@ -97,6 +103,7 @@ class ProfilController extends Controller {
             return;
         }
         if (User::update($user['id'], $user['username'], $user['email'])) {
+            Session::set('username', $user['username']);
             $this->render('profil/settings', ['user' => $user, 'success' => 'Nom d\'utilisateur mis à jour.']);
         } else {
             $this->render('profil/settings', ['user' => $user, 'error' => 'Erreur lors de la mise à jour du nom d\'utilisateur.']);
@@ -114,6 +121,7 @@ class ProfilController extends Controller {
         }
         if (User::update($user['id'], $user['username'], $user['email'])) {
             $this->render('profil/settings', ['user' => $user, 'success' => 'Email mis à jour.']);
+            Session::set('email', $user['email']);
         } else {
             $this->render('profil/settings', ['user' => $user, 'error' => 'Erreur lors de la mise à jour de l\'email.']);
         }
@@ -124,11 +132,45 @@ class ProfilController extends Controller {
             $this->render('profil/settings', ['user' => $user, 'error' => 'Le mot de passe doit contenir au moins 8 caractères, une lettre majuscule, une lettre minuscule et un chiffre']);
             return;
         }
-        if (User::updatePassword($user['email'], $user['password'])) {
+        if (User::updatePassword($user['id'], $user['password'])) {
             $this->render('profil/settings', ['user' => $user, 'success' => 'Mot de passe mis à jour.']);
         } else {
             $this->render('profil/settings', ['user' => $user, 'error' => 'Erreur lors de la mise à jour du mot de passe.']);
         }
+    }
+
+    private function updateUserNotifications($user) {
+        if ($_POST['notifications'] === "1" || $_POST['notifications'] === "0") {
+            $status = $_POST['notifications'];
+            if (User::setNotification($user['id'], $status)) {
+                http_response_code(200);
+                echo json_encode([
+                    'status' => 'success',
+                    'notifications' => $status
+                ]);
+                exit;
+            }
+        }
+        http_response_code(400);
+        echo json_encode(['status' => 'error']);
+        exit;
+    }
+
+    private function updateUserEmailVisibility($user) {
+        if ($_POST['email_visibility'] === "1" || $_POST['email_visibility'] === "0") {
+            $status = $_POST['email_visibility'];
+            if (User::setEmailVisibility($user['id'], $status)) {
+                http_response_code(200);
+                echo json_encode([
+                    'status' => 'success',
+                    'email_visibility' => $status
+                ]);
+                exit;
+            }
+        }
+        http_response_code(400);
+        echo json_encode(['status' => 'error']);
+        exit;
     }
 
 }

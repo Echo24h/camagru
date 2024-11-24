@@ -10,6 +10,7 @@
 
     <img class="logo" src="/img/logo.png" alt="Logo">
     <h1>Paramètres</h1>
+    <a href="/">Retour</a>
 
     <div class="container">
         <?php if (isset($error)): ?>
@@ -40,18 +41,27 @@
         <!-- Modification du mot de passe -->
         <form action="/settings" method="POST">
             <label for="password">Nouveau mot de passe :</label>
-            <input type="password" id="password" name="password" placeholder="Entrez un nouveau mot de passe">
+            <input type="password" id="password" autocomplete="new-password" name="password" placeholder="Entrez un nouveau mot de passe">
             <button type="submit" name="update_password">Mettre à jour</button>
+        </form>
+        
+        <!-- Visibilité de l'email -->
+        <form action="/settings" method="POST">
+            <div class="checkbox-group">
+                <label for="email_visibility">Rendre l'email public :</label>
+                <input type="checkbox" id="email_visibility" name="email_visibility" <?= htmlspecialchars($user['email_visibility']) ? 'checked' : '' ?>>
+            </div>
         </form>
 
         <!-- Modification des notifications -->
         <form action="/settings" method="POST">
             <div class="checkbox-group">
-                <label for="notifications">Activer les notifications :</label>
-                <input type="checkbox" id="notifications" name="notifications" <?= $notificationsEnabled ? 'checked' : '' ?>>
+                <label for="notifications">Activer les notifications par email :</label>
+                <input type="checkbox" id="notifications" name="notifications" <?= htmlspecialchars($user['notifications']) ? 'checked' : '' ?>>
             </div>
-            <button type="submit" name="update_notifications">Mettre à jour</button>
         </form>
+
+        <script src="/js/settings.js" defer></script>
     </div>
 
 </body>

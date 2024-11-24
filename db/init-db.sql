@@ -4,8 +4,11 @@ CREATE TABLE IF NOT EXISTS users (
     username VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
+    notifications BOOLEAN DEFAULT 1,
+    email_visibility BOOLEAN DEFAULT 0,
     email_verified BOOLEAN DEFAULT 0,
     email_verification_token VARCHAR(255) DEFAULT NULL,
+    password_reset_token VARCHAR(255) DEFAULT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
