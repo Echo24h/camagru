@@ -1,36 +1,23 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inscription</title>
-    <!-- Lien vers le fichier CSS externe -->
-    <link rel="stylesheet" href="/css/styles.css" type="text/css">
-</head>
-<body>
-    <img class ="logo" src="/img/logo.png" alt="Logo" type="image/png">
-    <h1>Inscription</h1>
+<h1>Inscription</h1>
 
-    <div class="container">
-        <?php if (isset($error)): ?>
-            <p class="message error"><?= htmlspecialchars($error) ?></p>
-        <?php endif; ?>
+<div class="container container-auth">
+    <?php if (isset($error)): ?>
+        <p class="message error"><?= htmlspecialchars($error) ?></p>
+    <?php endif; ?>
 
-        <form action="/register" method="POST">
-            <label for="username">Nom d'utilisateur :</label>
-            <input type="text" id="username" name="username" autocomplete="username" required>
+    <form action="/register" method="POST">
+        <label for="username">Nom d'utilisateur :</label>
+        <input type="text" id="username" name="username" autocomplete="username" required>
 
-            <label for="email">Adresse e-mail :</label>
-            <input type="email" id="email" name="email" autocomplete="email" required>
+        <label for="email">Adresse e-mail :</label>
+        <input type="email" id="email" name="email" autocomplete="email" required>
 
-            <label for="password">Mot de passe :</label>
-            <input type="password" id="password" name="password" autocomplete="new-password" required>
+        <label for="password">Mot de passe :</label>
+        <input type="password" id="password" name="password" autocomplete="new-password" required>
 
-            <button type="submit">S'inscrire</button>
-        </form>
+        <button type="submit">S'inscrire</button>
+    </form>
 
-        <p>Vous avez déjà un compte ? <a href="/login">Connectez-vous</a></p>
-        <p>Mot de passe oublié ? <a href="/forgot-password">Réinitialisez-le</a></p>
-    </div>
-</body>
-</html>
+    <p>Vous avez déjà un compte ? <a href="/login">Connectez-vous</a></p>
+    <p>Mot de passe oublié ? <a href="/forgot-password">Réinitialisez-le</a></p>
+</div>

@@ -2,10 +2,9 @@
 
 ## A faire
 
-- Refonte Design HTML CSS
+- Refonte Design HTML CSS (en cours)
 - Protection token CSRF
 - Finir éditeur + faire coté serveur PHP et non client Javascript
-- Notification commentaire
 
 ## Structure de base
 ```arduino

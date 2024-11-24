@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
@@ -13,14 +13,16 @@
         <h1><? echo htmlspecialchars($user['username']); ?></h1>
         <a href="/">Editeur</a>
 
-        <div class="user-info">
+        
+    </header> -->
+
+    <div class="user-info">
             <?php if ($user['email_visibility'] == 1): ?>
                 <p><? echo htmlspecialchars($user['email']); ?></p>
             <?php endif; ?>
             <p>Inscrit le: <? echo htmlspecialchars(date('d/m/Y', strtotime($user['created_at']))); ?></p>
             <p>Nombre de likes reçu: <? echo htmlspecialchars($likes_received); ?></p>
         </div>
-    </header>
 
     <?php
         if ($images === null || empty($images)) {
@@ -59,6 +61,3 @@
         }
         // Le code PHP pour lister et afficher les images
         ?>
-    
-</body>
-</html>
