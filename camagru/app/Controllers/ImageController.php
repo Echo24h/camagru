@@ -7,6 +7,7 @@ use App\Models\Image;
 use App\Models\User;
 use App\Models\Like;
 use App\Models\Comment;
+use App\Utils\Mail;
 use Core\Session;
 
 class ImageController extends Controller {
@@ -105,9 +106,15 @@ class ImageController extends Controller {
         if (isset($_POST['id']) && !empty($_POST['id']) && isset($_POST['comment']) && !empty($_POST['comment'])) {
             $image = Image::findById($_POST['id']);
             if ($image) {
-                Comment::create(Session::get('user_id'), $_POST['id'], $_POST['comment']);
+                $commentId = Comment::create(Session::get('user_id'), $_POST['id'], $_POST['comment']);
                 Image::updateComments($_POST['id'], 1);
                 $comments = Comment::findByImageId($_POST['id']);
+                if ($image['user_id'] != Session::get('user_id')) {
+                    $imageUser = User::findById($image['user_id']);
+                    if ($imageUser['notifications']) {
+                        Mail::sendCommentNotification($image['user_id'], $_POST['id'], $commentId);
+                    }
+                }
                 header('Location: /gallery/show?id=' . $_POST['id']);
             } else {
                 http_response_code(404);

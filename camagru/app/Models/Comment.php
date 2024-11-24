@@ -30,6 +30,13 @@ class Comment extends Model {
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    public static function findById($id) {
+        $db = self::getDB();
+        $stmt = $db->prepare("SELECT * FROM comments WHERE id = :id");
+        $stmt->execute(['id' => $id]);
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
+
     public static function count($imageId) {
         $db = self::getDB();
         $stmt = $db->prepare("SELECT COUNT(*) as count FROM comments WHERE image_id = :image_id");

@@ -3,6 +3,7 @@
 namespace App\Utils;
 
 use App\Models\User;
+use App\Models\Comment;
 
 class Mail {
 
@@ -74,15 +75,15 @@ class Mail {
         $link = $_ENV['DOMAIN'] . "/verify-email?token=$token&id=$userId";
 
         $content = "
-            <p>Bonjour " . $user['username'] . ",</p>
+            <p>Bonjour " . htmlspecialchars($user['username'], ENT_QUOTES, 'UTF-8') . ",</p>
             <p>Merci de vous être inscrit sur Camagru. Veuillez cliquer sur le lien ci-dessous pour confirmer votre adresse e-mail :</p>
-            <a href=" . $link . ">" . $link . "</a>
+            <a href=\"" . htmlspecialchars($link, ENT_QUOTES, 'UTF-8') . "\">" . htmlspecialchars($link, ENT_QUOTES, 'UTF-8') . "</a>
             <p>Si vous n'êtes pas à l'origine de cette inscription, veuillez ignorer cet e-mail.</p>
         ";
         return self::sendEmail($user['email'], $subject, $content);
     }
 
-    public static function sendResetPasswordEmail($userId) {
+    public static function sendResetPassword($userId) {
 
         // Remplace par tes propres clés API
         $subject = 'Réinitialisation de votre mot de passe';
@@ -91,10 +92,26 @@ class Mail {
         $link = $_ENV['DOMAIN'] . "/reset-password?token=$token&id=$userId";
 
         $content = "
-            <p>Bonjour " . $user['username'] . ",</p>
+            <p>Bonjour " . htmlspecialchars($user['username']) . ",</p>
             <p>Vous avez demandé une réinitialisation de votre mot de passe. Veuillez cliquer sur le lien ci-dessous pour choisir un nouveau mot de passe :</p>
-            <a href=" . $link . ">" . $link . "</a>
+            <a href=" . htmlspecialchars($link) . ">" . htmlspecialchars($link) . "</a>
             <p>Si vous n'êtes pas à l'origine de cette demande, veuillez ignorer cet e-mail.</p>
+        ";
+        return self::sendEmail($user['email'], $subject, $content);
+    }
+
+    public static function sendCommentNotification($userId, $imageId, $commentId) {
+        $subject = 'Nouveau commentaire sur votre photo';
+        $comment = Comment::findById($commentId);
+        $user = User::findById($userId);
+        $sender = User::findById($comment['user_id']);
+        $link = $_ENV['DOMAIN'] . "/gallery/show?id=" . $imageId;
+
+        $content = "
+            <p>Bonjour " . htmlspecialchars($user['username'], ENT_QUOTES, 'UTF-8') . ",</p>
+            <p>Vous avez reçu un nouveau commentaire sur votre photo :</p>
+            <p><strong>" . htmlspecialchars($sender['username'], ENT_QUOTES, 'UTF-8') . ": </strong> " . htmlspecialchars($comment['content'], ENT_QUOTES, 'UTF-8') . "</p>
+            <a href=\"" . htmlspecialchars($link, ENT_QUOTES, 'UTF-8') . "\">Voir la photo</a>
         ";
         return self::sendEmail($user['email'], $subject, $content);
     }

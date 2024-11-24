@@ -169,7 +169,7 @@ class AuthController extends Controller {
                     $this->render('auth/forgot-password', ['error' => 'Erreur lors de la réinitialisation du mot de passe']);
                     return;
                 }
-                if (Mail::sendResetPasswordEmail($user['id'])) {
+                if (Mail::sendResetPassword($user['id'])) {
                     $this->render('auth/login', ['success' => 'Un e-mail de réinitialisation de mot de passe a été envoyé']);
                     return;
                 } else {
