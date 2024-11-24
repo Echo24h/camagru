@@ -101,3 +101,31 @@ h1 {
 .message.success {
     color: green;
 }
+
+/* Section spécifique aux paramètres */
+.container .checkbox-group {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.container .checkbox-group label {
+    margin-right: 10px;
+    font-size: 16px;
+    color: #555;
+}
+
+.container .checkbox-group input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+}
+
+.container input[type="text"],
+.container input[type="email"],
+.container input[type="password"] {
+    margin-bottom: 15px;
+}
+
+.container button {
+    margin-top: 20px;
+}

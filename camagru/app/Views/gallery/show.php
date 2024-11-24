@@ -23,7 +23,7 @@
         <!-- Informations sur l'image -->
         <div class="image-info">
             <div class="creator">
-                Créée par: <a href="/<?php echo htmlspecialchars($image['username']); ?>"><?php echo htmlspecialchars($image['username']); ?></a>
+                Créée par: <a href="/profil?id=<?php echo htmlspecialchars($image['user_id']); ?>"><?php echo htmlspecialchars($image['username']); ?></a>
             </div>
             <?php
                 echo '<div class="likes" data-id="' . $image['id'] . '">';
@@ -44,7 +44,7 @@
                 <ul class="comment-list">
                     <?php foreach ($comments as $comment): ?>
                         <li class="comment-item">
-                            <strong><?php echo htmlspecialchars($comment['username']); ?>:</strong> <?php echo htmlspecialchars($comment['content']); ?>
+                            <strong><a href="/profil?id=<? echo htmlspecialchars($comment['user_id']); ?>"><?php echo htmlspecialchars($comment['username']); ?>:</a></strong> <?php echo htmlspecialchars($comment['content']); ?>
                         </li>
                     <?php endforeach; ?>
                 </ul>

@@ -135,11 +135,11 @@ class AuthController extends Controller {
                     return;
                 }
             } else {
-                $this->render('auth/login', ['error' => 'Erreur lors de la vérification de l\'adresse e-mail']);
+                $this->render('error/404');
                 return;
             }
         } else {
-            $this->render('auth/login', ['error' => 'Erreur lors de la vérification de l\'adresse e-mail']);
+            $this->render('error/404');
             return;
         }
     }

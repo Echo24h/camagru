@@ -71,6 +71,34 @@ class User extends Model {
         ]);
     }
 
+    public static function updatePassword($email, $password) {
+        $db = self::getDB();
+        $stmt = $db->prepare("UPDATE users SET password = :password WHERE email = :email");
+        $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+        return $stmt->execute([
+            'email' => $email,
+            'password' => $hashedPassword,
+        ]);
+    }
+
+    public static function setPasswordResetToken($email) {
+        $db = self::getDB();
+        $stmt = $db->prepare("UPDATE users SET password_reset_token = :token WHERE email = :email");
+        $stmt->execute([
+            'email' => $email,
+            'token' => Utils::generateToken()
+        ]);
+        return $stmt->fetch(\PDO::FETCH_ASSOC)['password_reset_token'];
+    }
+
+    public static function getPasswordResetToken($email) {
+        $db = self::getDB();
+        $stmt = $db->prepare("SELECT password_reset_token FROM users WHERE email = :email");
+        $stmt->execute(['email' => $email]);
+        $user = $stmt->fetch(\PDO::FETCH_ASSOC);
+        return $user['password_reset_token'];
+    }
+
     public static function delete($id) {
         $db = self::getDB();
         $stmt = $db->prepare("DELETE FROM users WHERE id = :id");

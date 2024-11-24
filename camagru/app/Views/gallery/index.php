@@ -31,7 +31,7 @@
                 echo '<a href="/gallery/show?id=' . htmlspecialchars($image['id']) . '"><img class="picture" src="' . htmlspecialchars($image['data']) . '" alt="Image"></a>';
                 echo '<div class="item-info">';
                 // Créateur avec lien
-                echo '<div class="creator"><a href="' . htmlspecialchars($image['username']) . '">' . htmlspecialchars($image['username']) . '</a></div>';
+                echo '<div class="creator"><a href="profil?id=' . htmlspecialchars($image['user_id']) . '">' . htmlspecialchars($image['username']) . '</a></div>';
                 // Clic sur les commentaires redirige vers la page show
                 echo '<div class="comments"><a href="/gallery/show?id=' . htmlspecialchars($image['id']) . '"><img class="icon" src="img/comment.svg" alt="Commentaire"> ' . htmlspecialchars($image['total_comments']) . '</a></div>';
                 // J'aime avec clic AJAX

@@ -2,7 +2,6 @@
 
 return [
     '' => 'EditorController@index',
-    'user/profile' => 'UserController@profile',
     'login' => 'AuthController@login',
     'logout' => 'AuthController@logout',
     'register' => 'AuthController@register',
@@ -14,4 +13,6 @@ return [
     'gallery' => 'GalleryController@index',
     'gallery/show' => 'GalleryController@show',
     '404' => 'ErrorController@notFound',
+    'profil' => 'ProfilController@index',
+    'settings' => 'ProfilController@settings',
 ];

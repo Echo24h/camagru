@@ -15,7 +15,8 @@
         <div id="container-profil">
             <p>Hello <?= htmlspecialchars($_SESSION['username']) ?> !</p>
             <a href="/gallery">Galerie</a>
-            <a href="/profil">Profil</a>
+            <a href="/profil?id=<? echo htmlspecialchars($user_id); ?>">Mon profil</a>
+            <a href="/settings">Paramètres</a>
             <a href="/logout"> Déconnexion</a>
         </div>
     </header>
