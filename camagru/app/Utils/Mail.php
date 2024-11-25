@@ -58,7 +58,7 @@ class Mail {
                 curl_close($ch);
                 return true;
             } else {
-                echo 'Erreur lors de l\'envoi de l\'email : ' . $responseData['Messages'][0]['Errors'][0]['ErrorMessage'];
+                echo 'Erreur lors de l\'envoi de l\'email';
             }
         }
         curl_close($ch);
