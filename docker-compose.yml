@@ -1,4 +1,4 @@
-version: '3.8'
+# version: '3.8'
 
 services:
 
@@ -7,7 +7,7 @@ services:
       context: ./db
     env_file: .env
     ports:
-      - "3306:3306"
+      - "3307:3306"
     networks:
       - camagru-network
 
@@ -28,10 +28,10 @@ services:
     build:
       context: ./nginx
     ports:
-      #- "8080:80"
-      #- "8081:443"
-      - "80:80"
-      - "443:443"
+      - "8080:80"
+      - "8081:443"
+      #- "80:80"
+      #- "443:443"
     volumes:
       - ./camagru:/var/www/html
     networks:
