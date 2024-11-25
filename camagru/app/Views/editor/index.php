@@ -3,8 +3,11 @@
 
         <div class="editor-buttons">
             <div>
-                <button id="start-webcam">
-                    <img class="editor-icon" src="/img/camera_on.svg" alt="Allumer la camera">
+                <button id="toggle-webcam">
+                    <img id="toggle-icon" class="editor-icon" src="/img/camera-on.svg" alt="Allumer la camera">
+                </button>
+                <button id="take-picture" disabled>
+                    <img class="editor-icon" src="/img/screen.svg" alt="Prendre une photo">
                 </button>
                 <button>
                     <label for="image-upload">

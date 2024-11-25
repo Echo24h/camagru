@@ -6,9 +6,28 @@ const submitButton = document.getElementById('save-image');
 function displayImage(file) {
     const reader = new FileReader();
     reader.onload = function(e) {
+
+        // Suppression de l'ancienne image
+        const oldImage = document.querySelector('#main-image');
+        if (oldImage) {
+            oldImage.remove();
+        }
+
+        // Création de la nouvelle image
         const imgElement = createDraggableImage(e.target.result);
+        imgElement.id = 'main-image';
+
+        // Ajout de l'image à l'éditeur
         editorInterface.appendChild(imgElement);
         handleImageEvents(imgElement);
+
+        // Réinitialisation de l'input
+        imageUpload.value = '';
+
+        // Redimensionnement de l'editor
+        editorInterface.style.width = width + 'px';
+        editorInterface.style.height = height + 'px';
+
     };
     reader.readAsDataURL(file);
 }
