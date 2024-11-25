@@ -69,19 +69,6 @@ input[type="file"] {
     width: 100%;
 }
 
-.sticker-list {
-    display: flex;
-    flex-wrap: wrap;
-    height: auto;
-    gap: 10px;
-}
-
-.sticker {
-    width: auto;
-    height: 200px;
-    cursor: pointer;    
-}
-
 .image-thumbnails {
     display: flex;
     flex-wrap: wrap; /* Permet de retourner à la ligne si nécessaire */

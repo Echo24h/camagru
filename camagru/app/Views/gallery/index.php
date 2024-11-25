@@ -20,8 +20,9 @@ else {
         // J'aime avec clic AJAX
         echo '<div class="likes" data-id="' . htmlspecialchars($image['id']) . '">';
         if (htmlspecialchars($image['total_likes']) > 0) {
+            
+            echo '<img class="icon" src="img/like.svg" alt="J\'aime">';
             echo '<p>' . htmlspecialchars($image['total_likes']) . '</p>';
-            echo '<img class="icon" src="img/like.svg" alt="J\'aime">';   
         } else {
             echo '<img class="icon" src="img/like_empty.svg" alt="J\'aime">';
         }

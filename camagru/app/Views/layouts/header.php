@@ -5,8 +5,10 @@
     <nav class="navbar">
         <div>
             <a class="navbar-link" href="/gallery">Galerie</a>
-            <a class="navbar-link" href="/">Editeur</a>
-            <a class="navbar-link" href="/settings">Paramètres</a>
+            <?php if (isset($_SESSION['user_id'])): ?>
+                <a class="navbar-link" href="/">Editeur</a>
+                <a class="navbar-link" href="/settings">Paramètres</a>
+            <?php endif; ?>
         </div>
         <div class="navbar-login">
             <?php if (isset($_SESSION['user_id'])): ?>

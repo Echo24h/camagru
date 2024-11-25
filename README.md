@@ -2,7 +2,6 @@
 
 ## A faire
 
-- Refonte Design HTML CSS (en cours)
 - Protection token CSRF
 - Finir éditeur + faire coté serveur PHP et non client Javascript
 

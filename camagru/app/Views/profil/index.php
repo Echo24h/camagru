@@ -1,28 +1,12 @@
-<!-- <!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Galerie d'Images</title>
-    <link rel="stylesheet" href="/css/gallery.css" type="text/css">
-    <script src="/js/gallery.js" defer></script>
-</head>
-<body>
-    <header>
-        <img class="logo" src="/img/logo.png" alt="Logo">
-        <h1><? echo htmlspecialchars($user['username']); ?></h1>
-        <a href="/">Editeur</a>
-
-        
-    </header> -->
-
-    <div class="user-info">
-            <?php if ($user['email_visibility'] == 1): ?>
-                <p><? echo htmlspecialchars($user['email']); ?></p>
-            <?php endif; ?>
-            <p>Inscrit le: <? echo htmlspecialchars(date('d/m/Y', strtotime($user['created_at']))); ?></p>
-            <p>Nombre de likes reçu: <? echo htmlspecialchars($likes_received); ?></p>
-        </div>
+<h1><? echo htmlspecialchars($user['username']); ?></h1>
+<div class="container container-user">
+    <div class="user-info">   
+        <?php if ($user['email_visibility'] == 1): ?>
+            <p><? echo htmlspecialchars($user['email']); ?></p>
+        <?php endif; ?>
+        <p>Inscrit le: <? echo htmlspecialchars(date('d/m/Y', strtotime($user['created_at']))); ?></p>
+        <p>Nombre de likes reçu: <? echo htmlspecialchars($likes_received); ?></p>
+    </div>
 
     <?php
         if ($images === null || empty($images)) {
@@ -48,16 +32,20 @@
                 // J'aime avec clic AJAX
                 echo '<div class="likes" data-id="' . htmlspecialchars($image['id']) . '">';
                 if (htmlspecialchars($image['total_likes']) > 0) {
+            
+                    echo '<img class="icon" src="img/like.svg" alt="J\'aime">';
                     echo '<p>' . htmlspecialchars($image['total_likes']) . '</p>';
-                    echo '<img class="icon" src="img/like.svg" alt="J\'aime">';   
                 } else {
                     echo '<img class="icon" src="img/like_empty.svg" alt="J\'aime">';
                 }
                 echo '</div>';
                 echo '</div>';
                 echo '</div>';
+
             }
             echo '</div>';
         }
-        // Le code PHP pour lister et afficher les images
-        ?>
+    ?>
+</div>
+
+<script src="/js/gallery.js" defer></script>

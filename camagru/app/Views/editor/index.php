@@ -1,20 +1,29 @@
-<div class="container">
+<div class="container-editor">
     <div class="editor">
 
-        <!-- Save and Download -->
-        <div class="actions">
-            <button id="save-image">Sauvegarder l'image</button>
-            <button id="download-image" disabled>Télécharger l'image</button>
+        <div class="editor-buttons">
+            <div>
+                <button id="start-webcam">
+                    <img class="editor-icon" src="/img/camera_on.svg" alt="Allumer la camera">
+                </button>
+                <button>
+                    <label for="image-upload">
+                        <img class="editor-icon" src="/img/upload.svg" alt="Importer une image">
+                    <input type="file" id="image-upload" accept="image/*">
+                </button>
+            </div>
+            <div>
+                <button id="save-image">
+                    <img class="editor-icon" src="/img/save.svg" alt="Sauvegarder l'image">
+                </button>
+                <button id="download-image" disabled>
+                    <img class="editor-icon" src="/img/download.svg" alt="Télécharger l'image">
+                </button>
+            </div>
         </div>
 
         <div class="editor-interface">
-
-        </div>
-
-        <!-- Image Upload -->
-        <div class="upload-image">
-            <h2>Télécharger une image</h2>
-            <input type="file" id="image-upload" accept="image/*">
+            <video id="webcam" width="100%" height="auto" autoplay></video>
         </div>
 
         <!-- Stickers List -->
@@ -38,11 +47,11 @@
         <!-- Edited Images -->
         <div class="edited-images">
             <h2>Images Éditées</h2>
-            <div class="image-thumbnails">
+            <div class="gallery-container">
                 <?php 
                 foreach ($images as $image) {
-                    echo '<div class="edited-image" data-id="' . htmlspecialchars($image['id']) . '" >';
-                    echo '<img src="' . htmlspecialchars($image['data']) . '" alt="Image" class="thumbnail">';
+                    echo '<div class="gallery-item" data-id="' . htmlspecialchars($image['id']) . '" >';
+                    echo '<img src="' . htmlspecialchars($image['data']) . '" alt="Image" class="picture">';
                     echo '<button class="delete-image">Supprimer</button>';
                     echo '</div>';
                 }
@@ -50,12 +59,7 @@
             </div>
 
         </div>
-
-        <!-- Webcam Preview -->
-        <div class="webcam-preview">
-            <h2>Prévisualisation Webcam</h2>
-            <video id="webcam" width="100%" height="auto" autoplay></video>
-            <button id="start-webcam">Démarrer Webcam</button>
-        </div>
     </div>
 </div>
+<script src="/js/editor.js" defer></script>
+<script src="/js/webcam.js" defer></script>

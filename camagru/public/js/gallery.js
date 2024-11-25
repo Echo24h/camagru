@@ -15,8 +15,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     // Mise à jour du nombre de likes
                     const count = JSON.parse(xhr.responseText).count.count;
                     if (count > 0) {
-                        button.innerHTML = '<p>' + count + '</p>';
-                        button.innerHTML += '<img class="icon" src="/img/like.svg" alt="J\'aime">';
+                        button.innerHTML = '<img class="icon" src="/img/like.svg" alt="J\'aime">';
+                        button.innerHTML += '<p>' + count + '</p>';
                     } else {
                         button.innerHTML = '<img class="icon" src="/img/like_empty.svg" alt="Je n\'aime pas">';
                     }
