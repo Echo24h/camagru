@@ -12,17 +12,33 @@ async function startWebcam() {
         takePictureButton.disabled = false;
         // recupere la taille de la video
         const { width, height } = stream.getTracks()[0].getSettings();
+        resetEditor();
         editorInterface.style.width = `${width}px`;
         editorInterface.style.height = `${height}px`;
         const toggleIcon = document.querySelector('#toggle-icon');
         toggleIcon.src = "/img/camera-off.svg"; // Change l'image pour l'état "on"
     } catch (error) {
-        console.error("Erreur avec la webcam :", error);
+        //console.error("Erreur avec la webcam :", error);
         alert("Impossible d'accéder à la webcam.");
     }
 }
 
-function stopWebcam() {
+function resetEditor() {
+    // Suppression de l'ancienne image et des stickers
+    const oldImage = document.querySelector('#main-image');
+    const allStickers = editorInterface.querySelectorAll('.sticker');
+    if (oldImage) {
+        oldImage.remove();
+    }
+    allStickers.forEach(sticker => {
+        sticker.remove();
+    });
+    editorInterface.style.width = '100%';
+    editorInterface.style.height = '720px';
+    editorInterface.style.maxWidth = '1280px';
+}
+
+function stopWebcam(reset) {
     if (webcamStream) {
         const tracks = webcamStream.getTracks();
         tracks.forEach(track => track.stop()); // Arrête chaque piste
@@ -30,19 +46,21 @@ function stopWebcam() {
     }
     const takePictureButton = document.querySelector('#take-picture');
     takePictureButton.disabled = true;
-
     const video = document.querySelector('#webcam');
     video.srcObject = null; // Supprime le flux de la balise vidéo
     isWebcamActive = false;
     const toggleIcon = document.querySelector('#toggle-icon');
     toggleIcon.src = "/img/camera-on.svg"; // Change l'image pour l'état "off"
+    if (reset) {
+        resetEditor();
+    }
 }
 
 document.querySelector('#toggle-webcam').addEventListener('click', async () => {
     const toggleIcon = document.querySelector('#toggle-icon');
 
     if (isWebcamActive) {
-        stopWebcam();
+        stopWebcam(true);
     } else {
         await startWebcam();
     }
@@ -70,15 +88,9 @@ async function takePicture() {
     image.src = canvas.toDataURL('image/png');
     image.id = 'main-image';
 
-    // Suppression de l'ancienne image
-    const oldImage = document.querySelector('#main-image');
-    if (oldImage) {
-        oldImage.remove();
-    }
-
     // Affichage de l'image
     document.querySelector('.editor-interface').appendChild(image);
-    stopWebcam();
+    stopWebcam(false);
 }
 
 // Ajout d'un écouteur pour le bouton

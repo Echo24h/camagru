@@ -1,32 +1,37 @@
 <div class="container-editor">
     <div class="editor">
 
-        <div class="editor-buttons">
-            <div>
-                <button id="toggle-webcam">
-                    <img id="toggle-icon" class="editor-icon" src="/img/camera-on.svg" alt="Allumer la camera">
-                </button>
-                <button id="take-picture" disabled>
-                    <img class="editor-icon" src="/img/screen.svg" alt="Prendre une photo">
-                </button>
-                <button>
-                    <label for="image-upload">
-                        <img class="editor-icon" src="/img/upload.svg" alt="Importer une image">
-                    <input type="file" id="image-upload" accept="image/*">
-                </button>
-            </div>
-            <div>
-                <button id="save-image">
-                    <img class="editor-icon" src="/img/save.svg" alt="Sauvegarder l'image">
-                </button>
-                <button id="download-image" disabled>
-                    <img class="editor-icon" src="/img/download.svg" alt="Télécharger l'image">
-                </button>
+        <div class="editor-buttons-container">
+            <div class="editor-buttons">
+                <div>
+                    <button id="toggle-webcam">
+                        <img id="toggle-icon" class="editor-icon" src="/img/camera-on.svg" alt="Allumer la camera">
+                    </button>
+                    <button id="take-picture" disabled>
+                        <img class="editor-icon" src="/img/screen.svg" alt="Prendre une photo">
+                    </button>
+                    <button>
+                        <label for="image-upload">
+                            <img class="editor-icon" src="/img/upload.svg" alt="Importer une image">
+                        <input type="file" id="image-upload" accept="image/*">
+                    </button>
+                </div>
+                <h1>Editeur</h1>
+                <div>
+                    <button id="save-image">
+                        <img class="editor-icon" src="/img/save.svg" alt="Sauvegarder l'image">
+                    </button>
+                    <button id="download-image" disabled>
+                        <img class="editor-icon" src="/img/download.svg" alt="Télécharger l'image">
+                    </button>
+                </div>
             </div>
         </div>
 
-        <div class="editor-interface">
-            <video id="webcam" width="100%" height="auto" autoplay></video>
+        <div class="container-center">
+            <div class="editor-interface">
+                <video id="webcam" width="100%" height="auto" autoplay></video>
+            </div>
         </div>
 
         <!-- Stickers List -->
@@ -65,4 +70,6 @@
     </div>
 </div>
 <script src="/js/editor.js" defer></script>
-<script src="/js/webcam.js" defer></script>
+<script src="/js/editor_webcam.js" defer></script>
+<script src="/js/editor_upload.js" defer></script>
+<script src="/js/editor_stickers.js" defer></script>
