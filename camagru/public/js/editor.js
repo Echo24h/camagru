@@ -56,8 +56,9 @@ function displaySavedImage(image) {
     const imageContainer = document.createElement('div');
     imageContainer.classList.add('gallery-item');
     imageContainer.setAttribute('data-id', image.id);
+    $imageSrc = "/image?id=" + image.id;
     imageContainer.innerHTML = `
-        <img src="${image.data}" alt="Image" class="picture">
+        <img src="${$imageSrc}" alt="Image" class="picture">
         <button class="delete-image">Supprimer</button>
     `;
     document.querySelector('.gallery-container').prepend(imageContainer);

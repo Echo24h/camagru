@@ -99,7 +99,7 @@ class EditorController extends Controller {
         imagepng($baseImage);
         $imageData = ob_get_clean();
     
-        $base64Image = 'data:image/png;base64,' . base64_encode($imageData);
+        $base64Image = base64_encode($imageData);
     
         // Enregistrer l'image éditée
         $imageId = Image::create($userId, $base64Image, 'png');
