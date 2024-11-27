@@ -9,23 +9,28 @@ use App\Models\User;
 
 class GalleryController extends Controller {
 
-    public function index() {
+    private $imagesPerPage = 10;
 
-        $images = Image::getAll();
+    private function getImages($page) {
+        $images = Image::getAllPage($page, $this->imagesPerPage);
 
         $new_images = [];
-        // Décode les images en base64
         foreach ($images as $image) {
-            //$image['data'] = base64_decode($image['data']);
             $image['username'] = User::findById($image['user_id'])['username'];
             $new_images[] = $image;
         }
 
-        $this->render('gallery/index',
-            [
-                'images' => $new_images
-            ]
-        );
+        return $new_images;
+    }
+
+    public function index() {
+        if (isset($_GET['page'])) {
+            $page = (int)$_GET['page'];
+            $images = $this->getImages($page);
+            echo json_encode($images);
+        } else {
+            $this->render('gallery/index', ['images' => $this->getImages(1)]);
+        }
     }
 
     public function show() {
@@ -45,9 +50,6 @@ class GalleryController extends Controller {
         }
 
         $image['username'] = User::findById($image['user_id'])['username'];
-
-        // Décode l'image en base64
-        //$image['data'] = base64_decode($image['data']);
 
         if (!$image) {
             header('Location: /404');

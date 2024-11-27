@@ -16,10 +16,10 @@
             echo '<div class="likes" data-id="' . $image['id'] . '">';
             if (htmlspecialchars($image['total_likes']) > 0) {
                 echo '<img class="icon" src="/img/like.svg" alt="J\'aime">';
-                echo '<p>' . htmlspecialchars($image['total_likes']) . '</p>';
             } else {
                 echo '<img class="icon" src="/img/like_empty.svg" alt="J\'aime">';
             }
+            echo '<p>' . htmlspecialchars($image['total_likes']) . '</p>';
             echo '</div>';
         ?>
     </div>
@@ -52,4 +52,4 @@
     </div>
 </div>
 
-<script src="/js/gallery.js" defer></script>
+<script src="/js/gallery_show.js" defer></script>

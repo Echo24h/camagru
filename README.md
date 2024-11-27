@@ -3,6 +3,8 @@
 ## A faire
 
 - Protection token CSRF
+- Responsive
+- Téléchargement image
 
 ## Structure de base
 ```arduino

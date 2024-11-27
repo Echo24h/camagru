@@ -46,9 +46,13 @@ imageUpload.addEventListener('change', function(event) {
                 if (width > maxSize || height > maxSize) {
                     // Calcul de la mise à l'échelle pour garder les proportions
                     scale = maxSize / Math.max(width, height);
-
-                    imgElement.width = width * scale;
-                    imgElement.height = height * scale;
+                    // Redimensionnement de l'image
+                    var canvas = document.createElement('canvas');
+                    var ctx = canvas.getContext('2d');
+                    canvas.width = width * scale;
+                    canvas.height = height * scale;
+                    ctx.drawImage(imgElement, 0, 0, canvas.width, canvas.height);
+                    imgElement.src = canvas.toDataURL('image/png');
                 }
 
                 // Redimensionnement de l'éditeur en fonction des nouvelles dimensions de l'image

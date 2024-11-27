@@ -28,6 +28,18 @@ CREATE TABLE IF NOT EXISTS images (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
+-- Créer une table 'thumbnails'
+CREATE TABLE IF NOT EXISTS thumbnails (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    image_id INT NOT NULL,
+    user_id INT NOT NULL,
+    type VARCHAR(255) NOT NULL,
+    data LONGBLOB NOT NULL, -- Stockage en base64
+    width INT DEFAULT NULL,
+    height INT DEFAULT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 -- Créer une table 'comments'
 CREATE TABLE IF NOT EXISTS comments (
     id INT AUTO_INCREMENT PRIMARY KEY,

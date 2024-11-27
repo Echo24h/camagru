@@ -15,13 +15,16 @@
                             <img class="editor-icon" src="/img/upload.svg" alt="Importer une image">
                         <input type="file" id="image-upload" accept="image/*">
                     </button>
+                    <button id="reset-editor">
+                        <img class="editor-icon" src="/img/reset.svg" alt="Réinitialiser l'éditeur">
+                    </button>
                 </div>
-                <h1>Editeur</h1>
+                <h1>|</h1>
                 <div>
                     <button id="save-image">
                         <img class="editor-icon" src="/img/save.svg" alt="Sauvegarder l'image">
                     </button>
-                    <button id="download-image" disabled>
+                    <button id="download-image">
                         <img class="editor-icon" src="/img/download.svg" alt="Télécharger l'image">
                     </button>
                 </div>
@@ -55,12 +58,15 @@
         <!-- Edited Images -->
         <div class="edited-images">
             <h2>Images Éditées</h2>
-            <div class="gallery-container">
+            <div class="thumbnail-container">
                 <?php 
                 foreach ($images as $image) {
-                    echo '<div class="gallery-item" data-id="' . htmlspecialchars($image['id']) . '" >';
-                    echo '<img src="/image?id=' . htmlspecialchars($image['id']) . '" alt="Image" class="picture">';
-                    echo '<button class="delete-image">Supprimer</button>';
+                    echo '<div class="thumbnail-item" data-id="' . htmlspecialchars($image['id']) . '" >';
+                        echo '<img src="/thumbnail?id=' . htmlspecialchars($image['id']) . '" alt="Image" class="thumbnail">';
+                        echo '<div class="thumbnail-info">';
+                            echo '<button class="delete-image">Supprimer</button>';
+                            echo '<button class="download-image">Télécharger</button>';
+                        echo '</div>';
                     echo '</div>';
                 }
                 ?>

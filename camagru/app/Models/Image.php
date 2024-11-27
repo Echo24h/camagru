@@ -18,10 +18,39 @@ class Image extends Model {
         return $db->lastInsertId();
     }
 
-    public static function getAll() {
+    public static function getAllPage($page = 1, $limit = 10) {
         $db = self::getDB();
-        $stmt = $db->query("SELECT * FROM images ORDER BY id DESC");
+    
+        // Calculer l'offset en fonction de la page courante et de la limite
+        $offset = ($page - 1) * $limit;
+    
+        $stmt = $db->prepare("SELECT * FROM images ORDER BY id DESC LIMIT :limit OFFSET :offset");
+        $stmt->bindParam(':limit', $limit, \PDO::PARAM_INT);
+        $stmt->bindParam(':offset', $offset, \PDO::PARAM_INT);
+        $stmt->execute();
+    
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public static function getUserPage($userId, $page = 1, $limit = 10) {
+        $db = self::getDB();
+    
+        // Calculer l'offset en fonction de la page courante et de la limite
+        $offset = ($page - 1) * $limit;
+    
+        $stmt = $db->prepare("SELECT * FROM images WHERE user_id = :user_id ORDER BY id DESC LIMIT :limit OFFSET :offset");
+        $stmt->bindParam(':user_id', $userId, \PDO::PARAM_INT);
+        $stmt->bindParam(':limit', $limit, \PDO::PARAM_INT);
+        $stmt->bindParam(':offset', $offset, \PDO::PARAM_INT);
+        $stmt->execute();
+    
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public static function getTotalImages() {
+        $db = self::getDB();
+        $stmt = $db->query("SELECT COUNT(*) FROM images");
+        return $stmt->fetchColumn();
     }
 
     public static function findByUserId($userId) {

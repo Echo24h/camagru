@@ -9,8 +9,8 @@ return [
     'verify-email' => 'AuthController@verifyEmail',
     'forgot-password' => 'AuthController@forgotPassword',
     'reset-password' => 'AuthController@resetPassword',
-    /*'image/save' => 'ImageController@save',*/
     'image' => 'ImageController@get',
+    'thumbnail' => 'ImageController@thumbnail',
     'image/delete' => 'ImageController@delete',
     'image/like' => 'ImageController@like',
     'image/comment' => 'ImageController@comment',

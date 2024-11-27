@@ -9,12 +9,21 @@ use Core\Session;
 
 class ProfilController extends Controller {
 
-    public function index() {
+    private $imagesPerPage = 10;
 
-        if (!isset($_GET['id'])) {
-            $this->render('error/404');
-            return;
+    private function getUserImages($userId, $page) {
+        $images = Image::getUserPage($userId, $page, $this->imagesPerPage);
+
+        $new_images = [];
+        foreach ($images as $image) {
+            $image['username'] = User::findById($image['user_id'])['username'];
+            $new_images[] = $image;
         }
+
+        return $new_images;
+    }
+
+    public function index() {
 
         $id = $_GET['id'];
 
@@ -25,6 +34,7 @@ class ProfilController extends Controller {
             return;
         }
 
+        // TRES LENT, A OPTIMISER
         $images = Image::findByUserId($user['id']);
 
         $likes_received = 0;
@@ -32,12 +42,19 @@ class ProfilController extends Controller {
         foreach ($images as $image) {
             $likes_received += $image['total_likes'];
         }
+        // FIN TRES LENT
 
-        $this->render('profil/index', [
-            'user' => $user,
-            'images' => $images,
-            'likes_received' => $likes_received
-        ]);
+        if (isset($_GET['page'])) {
+            $page = (int)$_GET['page'];
+            $images = $this->getUserImages($user['id'], $page);
+            echo json_encode($images);
+        } else {
+            $this->render('profil/index', [
+                'user' => $user,
+                'images' => $this->getUserImages($user['id'], 1),
+                'likes_received' => $likes_received
+            ]);
+        }
     }
 
     public function settings() {

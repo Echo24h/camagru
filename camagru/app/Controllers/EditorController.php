@@ -5,6 +5,7 @@ namespace App\Controllers;
 use Core\Controller;
 use App\Models\User;
 use App\Models\Image;
+use App\Models\Thumbnail;
 use Core\Session;
 
 class EditorController extends Controller {
@@ -98,11 +99,12 @@ class EditorController extends Controller {
         ob_start();
         imagepng($baseImage);
         $imageData = ob_get_clean();
-    
+        $base64Thumbnail = base64_encode($this->createThumbnail($imageData));
         $base64Image = base64_encode($imageData);
-    
+
         // Enregistrer l'image éditée
         $imageId = Image::create($userId, $base64Image, 'png');
+        $thumbnailId = Thumbnail::create($userId, $imageId, $base64Thumbnail, 'png');
         $image = Image::findById($imageId);
     
         imagedestroy($baseImage);
@@ -114,5 +116,27 @@ class EditorController extends Controller {
                 'data' => $image['data']
             ]
         ]);
+    }
+
+    private function createThumbnail($imageData) {
+        $image = imagecreatefromstring($imageData);
+        
+        // Redimensionner l'image à 200px max de largeur ou hauteur
+        $width = imagesx($image);
+        $height = imagesy($image);
+        $width = $width > $height ? 200 : intval(200 * $width / $height);
+        $thumbnail = imagescale($image, $width);
+
+        // laisse la transparence
+        imagesavealpha($thumbnail, true);
+        $transparentColor = imagecolorallocatealpha($thumbnail, 0, 0, 0, 127);
+        imagefill($thumbnail, 0, 0, $transparentColor);
+
+        ob_start();
+        imagepng($thumbnail);
+        $thumbnailData = ob_get_clean();
+        imagedestroy($image);
+        imagedestroy($thumbnail);
+        return $thumbnailData;
     }
 }

@@ -13,6 +13,7 @@ class Session {
         '/gallery',
         '/image',
         '/gallery/show',
+        '/profil',
         '/image/like',
         '/image/comment',
         '/404',
