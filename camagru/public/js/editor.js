@@ -108,12 +108,13 @@ function displaySavedImage(image) {
         <img src="${$imageSrc}" alt="Image" class="thumbnail">
         <div class="thumbnail-info">
             <button class="delete-image">Supprimer</button>
-            <button class="download-image">Télécharger</button>
+            <button class="download-thumbnail">Télécharger</button>
         </div>
     `;
     document.querySelector('.thumbnail-container').prepend(imageContainer);
     // Ajout de l'événement pour la suppression de l'image
     handleDeleteImage(imageContainer.querySelector('.delete-image'));
+    handleDownloadImage(imageContainer.querySelector('.download-thumbnail'));
 }
 
 // Fonction pour réinitialiser l'éditeur
@@ -138,9 +139,19 @@ function resetEditor() {
 function handleDeleteImage(button) {
     if (button) {
         button.addEventListener('click', function() {
-            const imageContainer = button.parentElement;
+            const imageContainer = button.parentElement.parentElement;
             const imageId = imageContainer.getAttribute('data-id');
             deleteImage(imageId, imageContainer);
+        });
+    }
+}
+
+function handleDownloadImage(button) {
+    if (button) {
+        button.addEventListener('click', function() {
+            const imageContainer = button.parentElement.parentElement;
+            const imageId = imageContainer.getAttribute('data-id');
+            downloadImage(imageId);
         });
     }
 }
@@ -160,8 +171,19 @@ function deleteImage(imageId, imageContainer) {
     xhr.send('id=' + encodeURIComponent(imageId));
 }
 
+function downloadImage(imageId) {
+    const link = document.createElement('a');
+    link.download = 'camagru_image.png';
+    link.href = '/image?id=' + imageId;
+    link.click();
+}
+
 document.querySelectorAll('.delete-image').forEach(button => {
     handleDeleteImage(button);
+});
+
+document.querySelectorAll('.download-thumbnail').forEach(button => {
+    handleDownloadImage(button);
 });
 
 document.querySelector('#download-image').addEventListener('click', downloadImage);

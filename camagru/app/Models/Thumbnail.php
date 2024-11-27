@@ -18,6 +18,13 @@ class Thumbnail extends Model {
         return $db->lastInsertId();
     }
 
+    public static function getImageId($thumbnailId) {
+        $db = self::getDB();
+        $stmt = $db->prepare("SELECT image_id FROM thumbnails WHERE id = :id");
+        $stmt->execute(['id' => $thumbnailId]);
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
+
     public static function findByUserId($userId) {
         $db = self::getDB();
         $stmt = $db->prepare("SELECT * FROM thumbnails WHERE user_id = :user_id");

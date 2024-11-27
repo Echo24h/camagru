@@ -65,7 +65,7 @@
                         echo '<img src="/thumbnail?id=' . htmlspecialchars($image['id']) . '" alt="Image" class="thumbnail">';
                         echo '<div class="thumbnail-info">';
                             echo '<button class="delete-image">Supprimer</button>';
-                            echo '<button class="download-image">Télécharger</button>';
+                            echo '<button class="download-thumbnail">Télécharger</button>';
                         echo '</div>';
                     echo '</div>';
                 }
