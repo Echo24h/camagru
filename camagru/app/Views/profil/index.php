@@ -23,7 +23,7 @@
             foreach ($images as $image) {
                 echo '<div class="gallery-item" data-id="' . htmlspecialchars($image['id']) . '">';
                 // Clic sur l'image redirige vers la page show
-                echo '<a href="/gallery/show?id=' . htmlspecialchars($image['id']) . '"><img class="picture" src="' . htmlspecialchars($image['data']) . '" alt="Image"></a>';
+                echo '<a href="/gallery/show?id=' . htmlspecialchars($image['id']) . '"><img class="picture" src="image?id=' . htmlspecialchars($image['id']) . '" alt="Image"></a>';
                 echo '<div class="item-info">';
                 // Créateur avec lien
                 echo '<div class="creator"><a href=/profil?id=' . htmlspecialchars($user['id']) . '>' . htmlspecialchars($user['username']) . '</a></div>';

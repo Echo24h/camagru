@@ -3,7 +3,6 @@
 ## A faire
 
 - Protection token CSRF
-- Finir éditeur + faire coté serveur PHP et non client Javascript
 
 ## Structure de base
 ```arduino

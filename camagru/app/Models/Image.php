@@ -6,13 +6,14 @@ use Core\Model;
 
 class Image extends Model {
 
-    public static function create($user, $data) {
+    public static function create($userId, $data, $type) {
         $db = self::getDB();
-        $stmt = $db->prepare("INSERT INTO images (name, user_id, data) VALUES (:name, :user_id, :data)");
+        $stmt = $db->prepare("INSERT INTO images (name, user_id, data, type) VALUES (:name, :user_id, :data, :type)");
         $stmt->execute([
-            'name' => 'default',
-            'user_id' => $user['id'],
-            'data' => $data
+            'name' => 'Image',
+            'user_id' => $userId,
+            'data' => $data,
+            'type' => $type
         ]);
         return $db->lastInsertId();
     }

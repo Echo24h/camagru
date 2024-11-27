@@ -4,7 +4,7 @@
 <div class="image-details">
 <!-- Image -->
     <div class="image-container">
-        <?php echo '<img src="' . htmlspecialchars($image['data']) . '" alt="Image" class="full-image">' ?>
+        <?php echo '<img src="/image?id=' . htmlspecialchars($image['id']) . '" alt="Image" class="full-image">' ?>
     </div>
 
     <!-- Informations sur l'image -->

@@ -2,13 +2,15 @@
 
 return [
     '' => 'EditorController@index',
+    'editor/save' => 'EditorController@save',
     'login' => 'AuthController@login',
     'logout' => 'AuthController@logout',
     'register' => 'AuthController@register',
     'verify-email' => 'AuthController@verifyEmail',
     'forgot-password' => 'AuthController@forgotPassword',
     'reset-password' => 'AuthController@resetPassword',
-    'image/save' => 'ImageController@save',
+    /*'image/save' => 'ImageController@save',*/
+    'image' => 'ImageController@get',
     'image/delete' => 'ImageController@delete',
     'image/like' => 'ImageController@like',
     'image/comment' => 'ImageController@comment',

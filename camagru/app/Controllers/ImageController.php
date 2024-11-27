@@ -12,34 +12,58 @@ use Core\Session;
 
 class ImageController extends Controller {
 
-    public function save() {
-        if (isset($_POST['image']) && !empty($_POST['image'])) {
+    // public function save() {
+    //     if (isset($_POST['image']) && !empty($_POST['image'])) {
 
-            $imageData = $_POST['image'];
+    //         $imageData = $_POST['image'];
 
-            if (preg_match('/^data:image\/(png|jpeg);base64,/', $imageData)) {
-                // Enregistrer l'image en base64
-                $user = User::findById(Session::get('user_id'));
-                $imageId = Image::create($user, $imageData);
-                $image = Image::findById($imageId);
-                header('Content-Type: application/json');
-                echo json_encode([
-                    'success' => true,
-                    'image' => [
-                        'id' => $image['id'],
-                        'data' => $image['data']  // Si vous voulez renvoyer l'image en base64
-                    ]
-                ]);
-                exit;
+    //         if (preg_match('/^data:image\/(png|jpeg);base64,/', $imageData)) {
+    //             // Enregistrer l'image en base64
+    //             $user = User::findById(Session::get('user_id'));
+    //             $imageId = Image::create($user, $imageData);
+    //             $image = Image::findById($imageId);
+    //             header('Content-Type: application/json');
+    //             echo json_encode([
+    //                 'success' => true,
+    //                 'image' => [
+    //                     'id' => $image['id'],
+    //                     'data' => $image['data']  // Si vous voulez renvoyer l'image en base64
+    //                 ]
+    //             ]);
+    //             exit;
+    //         } else {
+    //             http_response_code(400);
+    //             echo "L'image doit être au format base64.";
+    //             exit;
+    //         }
+    //     } else {
+    //         http_response_code(400);
+    //         echo "Veuillez sélectionner une image.";
+    //         return;
+    //     }
+    // }
+
+    public function get() {
+        if (isset($_GET['id']) && !empty($_GET['id'])) {
+            $image = Image::findById($_GET['id']);
+            if ($image) {
+                if ($image['type'] == 'gif') {
+                    header('Content-Type: image/gif');
+                } else {
+                    header('Content-Type: image/png');
+                }
+                $decodedImage = base64_decode($image['data']);
+                // Suppression des contenus de type 'dataimage/pngbase64,' ou 'dataimage/gifbase64,'
+                echo $decodedImage;
+                
+                
             } else {
-                http_response_code(400);
-                echo "L'image doit être au format base64.";
-                exit;
+                http_response_code(404);
+                echo "Image introuvable.";
             }
         } else {
             http_response_code(400);
             echo "Veuillez sélectionner une image.";
-            return;
         }
     }
 

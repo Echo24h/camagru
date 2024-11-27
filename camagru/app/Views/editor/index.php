@@ -59,7 +59,7 @@
                 <?php 
                 foreach ($images as $image) {
                     echo '<div class="gallery-item" data-id="' . htmlspecialchars($image['id']) . '" >';
-                    echo '<img src="' . htmlspecialchars($image['data']) . '" alt="Image" class="picture">';
+                    echo '<img src="/image?id=' . htmlspecialchars($image['id']) . '" alt="Image" class="picture">';
                     echo '<button class="delete-image">Supprimer</button>';
                     echo '</div>';
                 }

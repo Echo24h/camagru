@@ -1,75 +1,77 @@
 
 const submitButton = document.getElementById('save-image');
 
-// Fonction pour enregistrer l'image
-function saveImage() {
-    const images = editorInterface.querySelectorAll('img');
-    if (images.length === 0) {
-        alert("Aucune image trouvée dans l'éditeur.");
+submitButton.addEventListener('click', () => {
+    const mainImage = document.querySelector('#main-image');
+    if (!mainImage) {
+        alert('Aucune image trouvée dans l\'éditeur.');
+        return;
+    }
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = mainImage.width;
+    canvas.height = mainImage.height;
+    ctx.drawImage(mainImage, 0, 0);
+
+    // Si l'image est un GIF on la laisse telle quelle
+    dataURL = '';
+    // Récupère les premiers caractères de la source de l'image
+    const isGif = mainImage.src.startsWith('data:image/gif');
+    if (isGif) {
+        dataURL = mainImage.src;
+    }
+    else {
+        dataURL = canvas.toDataURL('image/png');
+    }
+    if (!dataURL) {
+        alert('Erreur lors de la sauvegarde de l\'image.');
         return;
     }
 
-    const canvas = createCanvas();
-    const ctx = canvas.getContext('2d');
-    const rect = editorInterface.getBoundingClientRect();
-    ctx.fillStyle = window.getComputedStyle(editorInterface).backgroundColor || "#ffffff";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    stickers = editorInterface.querySelectorAll('.sticker');
 
-    let imagesLoaded = 0;
-    images.forEach(img => {
-        const imgRect = img.getBoundingClientRect();
-        const tempImage = new Image();
-        tempImage.crossOrigin = "anonymous";
-        tempImage.src = img.src;
+    dataStickers = [];
 
-        tempImage.onload = function () {
-            ctx.drawImage(tempImage, imgRect.left - rect.left, imgRect.top - rect.top, imgRect.width, imgRect.height);
-            imagesLoaded++;
-            if (imagesLoaded === images.length) {
-                const base64Image = canvas.toDataURL('image/png');
-                sendImageToServer(base64Image);
-            }
-        };
-
-        tempImage.onerror = function () {
-            alerte("Impossible de charger l'image : ", img.src);
-        };
+    stickers.forEach(sticker => {
+        const stickerRect = sticker.getBoundingClientRect();
+        dataStickers.push({
+            // Remove the domain from the src attribute
+            src: new URL(sticker.src).pathname,
+            x: stickerRect.left - mainImage.getBoundingClientRect().left,
+            y: stickerRect.top - mainImage.getBoundingClientRect().top,
+            width: stickerRect.width,
+            height: stickerRect.height
+        });
     });
-}
 
-// Fonction pour créer un canvas
-function createCanvas() {
-    const canvas = document.createElement('canvas');
-    const rect = editorInterface.getBoundingClientRect();
-    canvas.width = rect.width;
-    canvas.height = rect.height;
-    return canvas;
-}
-
-// Fonction pour envoyer l'image au serveur
-function sendImageToServer(base64Image) {
-    const xhr = new XMLHttpRequest();
-    xhr.open("POST", "image/save", true);
-    xhr.responseType = "json";
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.onload = function() {
-        if (xhr.status === 200) {
-            const image = xhr.response.image;
+    fetch('/editor/save', {
+        method: 'POST',
+        body: JSON.stringify({
+            image: dataURL,
+            stickers: dataStickers
+        }),
+        headers: { 'Content-Type': 'application/json' }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Image enregistrée avec succès.');
+            const image = data.image;
             displaySavedImage(image);
         } else {
-            alerte("Erreur lors de l'envoi de l'image.");
+            alert('Erreur lors de l\'enregistrement de l\'image.');
         }
-    };
-    xhr.send("image=" + encodeURIComponent(base64Image));
-}
+    });
+});
 
 // Fonction pour afficher l'image enregistrée
 function displaySavedImage(image) {
     const imageContainer = document.createElement('div');
     imageContainer.classList.add('gallery-item');
     imageContainer.setAttribute('data-id', image.id);
+    imageSrc = '/image?id=' + image.id;
     imageContainer.innerHTML = `
-        <img src="${image.data}" alt="Image" class="picture">
+        <img src="${imageSrc}" alt="Image" class="picture">
         <button class="delete-image">Supprimer</button>
     `;
     document.querySelector('.gallery-container').prepend(imageContainer);
@@ -102,9 +104,6 @@ function deleteImage(imageId, imageContainer) {
     };
     xhr.send('id=' + encodeURIComponent(imageId));
 }
-
-// Ajout de l'événement pour le bouton de sauvegarde
-submitButton.addEventListener('click', saveImage);
 
 document.querySelectorAll('.delete-image').forEach(button => {
     handleDeleteImage(button);

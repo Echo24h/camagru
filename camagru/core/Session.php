@@ -11,6 +11,7 @@ class Session {
         '/forgot-password',
         '/reset-password',
         '/gallery',
+        '/image',
         '/gallery/show',
         '/image/like',
         '/image/comment',
@@ -68,7 +69,6 @@ class Session {
         if (!isset($_SESSION['last_activity'])) {
             self::set('last_activity', time());
         } elseif (time() - self::get('last_activity') < 1800) {
-            session_regenerate_id(true);
             self::set('last_activity', time());
         } else {
             self::destroy();
