@@ -12,21 +12,8 @@ submitButton.addEventListener('click', () => {
     canvas.width = mainImage.width;
     canvas.height = mainImage.height;
     ctx.drawImage(mainImage, 0, 0);
-
-    // Si l'image est un GIF on la laisse telle quelle
-    dataURL = '';
-    // Récupère les premiers caractères de la source de l'image
-    const isGif = mainImage.src.startsWith('data:image/gif');
-    if (isGif) {
-        dataURL = mainImage.src;
-    }
-    else {
-        dataURL = canvas.toDataURL('image/png');
-    }
-    if (!dataURL) {
-        alert('Erreur lors de la sauvegarde de l\'image.');
-        return;
-    }
+    
+    const dataURL = canvas.toDataURL('image/png');
 
     stickers = editorInterface.querySelectorAll('.sticker');
 
@@ -69,9 +56,8 @@ function displaySavedImage(image) {
     const imageContainer = document.createElement('div');
     imageContainer.classList.add('gallery-item');
     imageContainer.setAttribute('data-id', image.id);
-    imageSrc = '/image?id=' + image.id;
     imageContainer.innerHTML = `
-        <img src="${imageSrc}" alt="Image" class="picture">
+        <img src="${image.data}" alt="Image" class="picture">
         <button class="delete-image">Supprimer</button>
     `;
     document.querySelector('.gallery-container').prepend(imageContainer);
