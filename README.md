@@ -1,6 +1,6 @@
 # camagru
 
-<a href="https://ibb.co/RhcvNWV"><img src="https://i.ibb.co/8z9KbVS/Capture-d-cran-du-2024-11-28-16-28-51.png" alt="Capture-d-cran-du-2024-11-28-16-28-51" width="100%"></a>
+<img src="https://i.ibb.co/8z9KbVS/Capture-d-cran-du-2024-11-28-16-28-51.png" alt="Capture-d-cran-du-2024-11-28-16-28-51" width="100%" border-radius="10px">
 
 ## Reste à faire
 
