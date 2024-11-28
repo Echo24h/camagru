@@ -51,7 +51,13 @@ submitButton.addEventListener('click', () => {
         if (!response.ok) {
             throw new Error(`Erreur serveur: ${response.status}`);
         }
-        return response.json();
+        // Vérifie si la requête est en JSON
+        if (response.headers.get('content-type').includes('application/json')) {
+            return response.json();
+        } else {
+            window.location.href = '/logout';
+            return;
+        }
     })
     .then(data => {
         if (data) {
@@ -69,6 +75,10 @@ submitButton.addEventListener('click', () => {
                 alert('Erreur lors de l\'enregistrement de l\'image.');
             }
         }
+    })
+    .catch(error => {
+        window.location.href = '/logout';
+        return;
     });
 });
 
@@ -197,7 +207,13 @@ function deleteImage(imageId, imageContainer) {
         if (!response.ok) {
             throw new Error(`Erreur serveur: ${response.status}`);
         }
-        return response.json();
+        // Vérifie si la requête est en JSON
+        if (response.headers.get('content-type').includes('application/json')) {
+            return response.json();
+        } else {
+            window.location.href = '/logout';
+            return;
+        }
     })
     .then(data => {
         if (data) {
@@ -209,6 +225,10 @@ function deleteImage(imageId, imageContainer) {
                 alert("Erreur lors de la suppression de l'image.");
             }
         }
+    })
+    .catch(error => {
+        window.location.href = '/logout';
+        return;
     });
 }
 

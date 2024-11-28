@@ -30,7 +30,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (!response.ok) {
                     throw new Error(`Erreur serveur: ${response.status}`);
                 }
-                return response.json();
+                // Vérifie si la requête est en JSON
+                if (response.headers.get('content-type').includes('application/json')) {
+                    return response.json();
+                } else {
+                    window.location.href = '/logout';
+                    return;
+                }
             })
             .then(data => {
                 if (data) {
@@ -53,6 +59,10 @@ document.addEventListener('DOMContentLoaded', function() {
                         alert("Erreur lors de la mise à jour des likes.");
                     }
                 }
+            })
+            .catch(error => {
+                window.location.href = '/logout';
+                return;
             });
         });
     });

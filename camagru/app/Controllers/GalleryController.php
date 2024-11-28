@@ -27,6 +27,7 @@ class GalleryController extends Controller {
         if (isset($_GET['page'])) {
             $page = (int)$_GET['page'];
             $images = $this->getImages($page);
+            header('Content-Type: application/json');
             echo json_encode($images);
         } else {
             $this->render('gallery/index', ['images' => $this->getImages(1)]);

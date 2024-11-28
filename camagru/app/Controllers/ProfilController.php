@@ -47,6 +47,7 @@ class ProfilController extends Controller {
         if (isset($_GET['page'])) {
             $page = (int)$_GET['page'];
             $images = $this->getUserImages($user['id'], $page);
+            header('Content-Type: application/json');
             echo json_encode($images);
         } else {
             $this->render('profil/index', [
@@ -161,6 +162,7 @@ class ProfilController extends Controller {
             $status = $_POST['notifications'];
             if (User::setNotification($user['id'], $status)) {
                 http_response_code(200);
+                header('Content-Type: application/json');
                 echo json_encode([
                     'status' => 'success',
                     'notifications' => $status,
@@ -170,6 +172,7 @@ class ProfilController extends Controller {
             }
         }
         http_response_code(400);
+        header('Content-Type: application/json');
         echo json_encode(['status' => 'error']);
         exit;
     }
@@ -179,6 +182,7 @@ class ProfilController extends Controller {
             $status = $_POST['email_visibility'];
             if (User::setEmailVisibility($user['id'], $status)) {
                 http_response_code(200);
+                header('Content-Type: application/json');
                 echo json_encode([
                     'status' => 'success',
                     'email_visibility' => $status,
@@ -188,6 +192,7 @@ class ProfilController extends Controller {
             }
         }
         http_response_code(400);
+        header('Content-Type: application/json');
         echo json_encode(['status' => 'error']);
         exit;
     }

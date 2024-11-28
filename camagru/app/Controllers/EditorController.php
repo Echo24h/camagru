@@ -30,6 +30,7 @@ class EditorController extends Controller {
         $userId = Session::get('user_id');
         if (!$userId) {
             http_response_code(403);
+            header('Content-Type: application/json');
             echo json_encode(['error' => 'Utilisateur non authentifié']);
             return;
         }
@@ -40,6 +41,7 @@ class EditorController extends Controller {
     
         if (!isset($data['image']) || !isset($data['stickers'])) {
             http_response_code(400);
+            header('Content-Type: application/json');
             echo json_encode(['error' => 'Données manquantes']);
             return;
         }
@@ -50,6 +52,7 @@ class EditorController extends Controller {
     
         if ($baseImage === false) {
             http_response_code(400);
+            header('Content-Type: application/json');
             echo json_encode(['error' => 'Image invalide']);
             return;
         }
@@ -108,7 +111,7 @@ class EditorController extends Controller {
         $image = Image::findById($imageId);
     
         imagedestroy($baseImage);
-    
+        header('Content-Type: application/json');
         echo json_encode([
             'success' => true,
             'token_csrf' => Session::getCsrfToken(),

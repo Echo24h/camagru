@@ -63,6 +63,7 @@ class ImageController extends Controller {
             if ($image && $image['user_id'] == Session::get('user_id')) {
                 Image::delete($_POST['id']);
                 http_response_code(200);
+                header('Content-Type: application/json');
                 echo json_encode([
                     'success' => true,
                     'token_csrf' => Session::getCsrfToken()
@@ -100,6 +101,7 @@ class ImageController extends Controller {
                 } else {
                     Image::updateLikes($_POST['id'], 1);
                     Like::create(Session::get('user_id'), $_POST['id']);
+                    header('Content-Type: application/json');
                     echo json_encode([
                         'success' => true,
                         'token_csrf' => Session::getCsrfToken(),
