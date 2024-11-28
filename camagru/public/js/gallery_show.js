@@ -4,6 +4,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const likeButtons = document.querySelectorAll('.likes');
     likeButtons.forEach(button => {
         button.addEventListener('click', function() {
+
+            // Redirection vers la page de connexion si le token CSRF n'est pas présent
+            const isTokenCSRF = document.querySelector('meta[name="csrf-token"]');
+            if (!isTokenCSRF) {
+                window.location.href = '/login';
+                return;
+            }
+            
             const imageId = button.getAttribute('data-id');
             const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
             const formData = new FormData();

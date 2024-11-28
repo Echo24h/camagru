@@ -10,6 +10,13 @@ document.addEventListener('DOMContentLoaded', function() {
         const imageId = button.getAttribute('data-id');
         if (!imageId) return; // Ignore si aucun ID d'image n'est présent
 
+        // Redirection vers la page de connexion si le token CSRF n'est pas présent
+        const isTokenCSRF = document.querySelector('meta[name="csrf-token"]');
+        if (!isTokenCSRF) {
+            window.location.href = '/login';
+            return;
+        }
+
         // Création de la requête AJAX
         const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
         const formData = new FormData();
