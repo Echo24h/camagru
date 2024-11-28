@@ -52,8 +52,8 @@ class Session {
             }
             else {
                 if (!isset($_POST['csrf_token']) || !Session::validateCSRF($_POST['csrf_token'])) {
-                    http_response_code(403);
-                    echo "CSRF Token invalide";
+                    header("HTTP/1.1 403 Forbidden");
+                    header("Location: /logout");
                     exit;
                 }
             }

@@ -42,20 +42,32 @@ submitButton.addEventListener('click', () => {
         }),
         headers: { 'Content-Type': 'application/json' }
     })
-    .then(response => response.json())
+    .then(response => {
+        if (response.status === 403) {
+            // Redirige vers la page de connexion en cas de 403
+            window.location.href = '/logout';
+            return;
+        }
+        if (!response.ok) {
+            throw new Error(`Erreur serveur: ${response.status}`);
+        }
+        return response.json();
+    })
     .then(data => {
-        if (data.success) {
-            const image = data.image;
-            const newToken = data.token_csrf;
-            document.querySelector('meta[name="csrf-token"]').setAttribute('content', newToken);
-            displaySavedImage(image);
-            // attendre 0.5 seconde avant de pouvoir renvoyer une autre image
-            submitButton.disabled = true;
-            setTimeout(() => {
-                submitButton.disabled = false;
-            }, 500);
-        } else {
-            alert('Erreur lors de l\'enregistrement de l\'image.');
+        if (data) {
+            if (data.success) {
+                const image = data.image;
+                const newToken = data.token_csrf;
+                document.querySelector('meta[name="csrf-token"]').setAttribute('content', newToken);
+                displaySavedImage(image);
+                // attendre 0.5 seconde avant de pouvoir renvoyer une autre image
+                submitButton.disabled = true;
+                setTimeout(() => {
+                    submitButton.disabled = false;
+                }, 500);
+            } else {
+                alert('Erreur lors de l\'enregistrement de l\'image.');
+            }
         }
     });
 });
@@ -176,14 +188,26 @@ function deleteImage(imageId, imageContainer) {
         method: 'POST',
         body: data
     })
-    .then(response => response.json())
+    .then(response => {
+        if (response.status === 403) {
+            // Redirige vers la page de connexion en cas de 403
+            window.location.href = '/logout';
+            return;
+        }
+        if (!response.ok) {
+            throw new Error(`Erreur serveur: ${response.status}`);
+        }
+        return response.json();
+    })
     .then(data => {
-        if (data.success) {
-            const newToken = data.token_csrf;
-            document.querySelector('meta[name="csrf-token"]').setAttribute('content', newToken);
-            imageContainer.remove();
-        } else {
-            alert("Erreur lors de la suppression de l'image.");
+        if (data) {
+            if (data.success) {
+                const newToken = data.token_csrf;
+                document.querySelector('meta[name="csrf-token"]').setAttribute('content', newToken);
+                imageContainer.remove();
+            } else {
+                alert("Erreur lors de la suppression de l'image.");
+            }
         }
     });
 }
