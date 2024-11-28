@@ -6,6 +6,7 @@
     <?php endif; ?>
 
     <form action="/register" method="POST">
+        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token'] ?? '') ?>">
         <label for="username">Nom d'utilisateur :</label>
         <input type="text" id="username" name="username" autocomplete="username" required>
 

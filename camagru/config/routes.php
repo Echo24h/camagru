@@ -17,6 +17,7 @@ return [
     'gallery' => 'GalleryController@index',
     'gallery/show' => 'GalleryController@show',
     '404' => 'ErrorController@notFound',
+    '403' => 'ErrorController@forbidden',
     'profil' => 'ProfilController@index',
     'settings' => 'ProfilController@settings',
 ];

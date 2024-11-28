@@ -111,16 +111,17 @@ class EditorController extends Controller {
     
         echo json_encode([
             'success' => true,
+            'token_csrf' => Session::getCsrfToken(),
             'image' => [
                 'id' => $image['id'],
-                'data' => $image['data']
+                'data' => $image['data'],
             ]
         ]);
     }
 
     private function createThumbnail($imageData) {
         $image = imagecreatefromstring($imageData);
-        
+
         // Redimensionner l'image à 200px max de largeur ou hauteur
         $width = imagesx($image);
         $height = imagesy($image);

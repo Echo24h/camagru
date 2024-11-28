@@ -44,6 +44,7 @@
     <div class="comment-form">
         <h3>Ajouter un Commentaire</h3>
         <form method="POST" action="/image/comment">
+            <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token'] ?? '') ?>">
             <input type="hidden" name="id" value="<?php echo htmlspecialchars($image['id']); ?>">
             <label for="comment">Commentaire:</label>
             <textarea name="comment" id="comment" required></textarea>

@@ -9,6 +9,7 @@
     <?php endif; ?>
 
     <form action="/reset-password?id=<?= htmlspecialchars($id) ?>&token=<?= htmlspecialchars($token) ?>" method="POST">
+        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token'] ?? '') ?>">
         <label for="password">Nouveau mot de passe :</label>
         <input type="password" id="password" name="password" autocomplete="new-password" required>
         <button type="submit">Réinitialiser le mot de passe</button>

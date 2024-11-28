@@ -2,8 +2,17 @@
 
 ## A faire
 
-- Protection token CSRF
 - Responsive
+
+## BONUS (fait)
+
+- Scroll infini dans les galeries
+- Requetes AJAX
+- Page profil
+- Protection CSRF
+- Controle de SESSION avancé
+- Caméra en direct dans l'éditeur
+- Déplacement des Stickers
 
 ## Structure de base
 ```arduino

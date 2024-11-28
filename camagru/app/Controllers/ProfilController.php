@@ -163,7 +163,8 @@ class ProfilController extends Controller {
                 http_response_code(200);
                 echo json_encode([
                     'status' => 'success',
-                    'notifications' => $status
+                    'notifications' => $status,
+                    'token_csrf' => $_SESSION['csrf_token']
                 ]);
                 exit;
             }
@@ -180,7 +181,8 @@ class ProfilController extends Controller {
                 http_response_code(200);
                 echo json_encode([
                     'status' => 'success',
-                    'email_visibility' => $status
+                    'email_visibility' => $status,
+                    'token_csrf' => $_SESSION['csrf_token']
                 ]);
                 exit;
             }

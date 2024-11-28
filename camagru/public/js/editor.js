@@ -2,6 +2,9 @@
 const submitButton = document.getElementById('save-image');
 
 submitButton.addEventListener('click', () => {
+
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
     const mainImage = document.querySelector('#main-image');
     if (!mainImage) {
         alert('Aucune image trouvée dans l\'éditeur.');
@@ -34,16 +37,23 @@ submitButton.addEventListener('click', () => {
         method: 'POST',
         body: JSON.stringify({
             image: dataURL,
-            stickers: dataStickers
+            stickers: dataStickers,
+            csrf_token: csrfToken
         }),
         headers: { 'Content-Type': 'application/json' }
     })
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            alert('Image enregistrée avec succès.');
             const image = data.image;
+            const newToken = data.token_csrf;
+            document.querySelector('meta[name="csrf-token"]').setAttribute('content', newToken);
             displaySavedImage(image);
+            // attendre 0.5 seconde avant de pouvoir renvoyer une autre image
+            submitButton.disabled = true;
+            setTimeout(() => {
+                submitButton.disabled = false;
+            }, 500);
         } else {
             alert('Erreur lors de l\'enregistrement de l\'image.');
         }
@@ -158,17 +168,24 @@ function handleDownloadImage(button) {
 
 // Fonction pour supprimer l'image avec AJAX
 function deleteImage(imageId, imageContainer) {
-    const xhr = new XMLHttpRequest();
-    xhr.open('POST', 'image/delete', true);
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.onload = function() {
-        if (xhr.status === 200 && xhr.responseText === 'success') {
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    data = new FormData();
+    data.append('id', imageId);
+    data.append('csrf_token', csrfToken);
+    fetch('/image/delete', {
+        method: 'POST',
+        body: data
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            const newToken = data.token_csrf;
+            document.querySelector('meta[name="csrf-token"]').setAttribute('content', newToken);
             imageContainer.remove();
         } else {
             alert("Erreur lors de la suppression de l'image.");
         }
-    };
-    xhr.send('id=' + encodeURIComponent(imageId));
+    });
 }
 
 function downloadImage(imageId) {

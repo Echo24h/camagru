@@ -14,6 +14,7 @@
 
     <!-- Modification du nom d'utilisateur -->
     <form action="/settings" method="POST">
+    <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token'] ?? '') ?>">
     <div class="settings-item">
             <label for="username">Nom d'utilisateur :</label>
             <input type="text" id="username" name="username" value="<?= htmlspecialchars($user['username']) ?>" required>
@@ -23,6 +24,7 @@
 
     <!-- Modification de l'email -->
     <form action="/settings" method="POST">
+        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token'] ?? '') ?>">
         <div class="settings-item">
             <label for="email">Email :</label>
             <input type="email" id="email" name="email" value="<?= htmlspecialchars($user['email']) ?>" required>
@@ -32,15 +34,17 @@
 
     <!-- Modification du mot de passe -->
     <form action="/settings" method="POST">
-    <div class="settings-item">
-        <label for="password">Nouveau mot de passe :</label>
-        <input type="password" id="password" autocomplete="new-password" name="password" placeholder="Entrez un nouveau mot de passe">
+        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token'] ?? '') ?>">
+        <div class="settings-item">
+            <label for="password">Nouveau mot de passe :</label>
+            <input type="password" id="password" autocomplete="new-password" name="password" placeholder="Entrez un nouveau mot de passe">
         </div>
         <button type="submit" name="update_password">Mettre à jour</button>
     </form>
 
     <!-- Visibilité de l'email -->
     <form action="/settings" method="POST">
+        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token'] ?? '') ?>">
         <div class="checkbox-group">
             <label for="email_visibility">Rendre l'email public :</label>
             <input type="checkbox" id="email_visibility" name="email_visibility" <?= htmlspecialchars($user['email_visibility']) ? 'checked' : '' ?>>
@@ -49,6 +53,7 @@
 
     <!-- Modification des notifications -->
     <form action="/settings" method="POST">
+        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token'] ?? '') ?>">
         <div class="checkbox-group">
             <label for="notifications">Activer les notifications par email :</label>
             <input type="checkbox" id="notifications" name="notifications" <?= htmlspecialchars($user['notifications']) ? 'checked' : '' ?>>

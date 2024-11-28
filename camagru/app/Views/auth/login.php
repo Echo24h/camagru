@@ -9,6 +9,7 @@
     <?php endif; ?>
 
     <form action="/login" method="POST">
+        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token'] ?? '') ?>">
         <label for="email">Email :</label>
         <input type="text" id="email" name="email" autocomplete="email" required>
 
