@@ -1,6 +1,6 @@
-# camagru (EN CONSTRUCTION)
+# camagru
 
-## A faire
+## Reste à faire
 
 - Responsive
 
@@ -14,56 +14,27 @@
 - Caméra en direct dans l'éditeur
 - Déplacement des Stickers
 
-## Structure de base
-```arduino
-camagru/
-├── app/
-│   ├── Controllers/
-│   │   ├── HomeController.php
-│   │   └── UserController.php
-│   ├── Models/
-│   │   ├── User.php
-│   │   └── Post.php
-│   ├── Views/
-│   │   ├── layouts/
-│   │   │   └── main.php
-│   │   ├── home/
-│   │   │   └── index.php
-│   │   └── user/
-│   │       └── profile.php
-├── public/
-│   ├── index.php
-│   ├── css/
-│   │   └── style.css
-│   └── js/
-│       └── app.js
-├── config/
-│   ├── config.php
-│   └── database.php
-├── core/
-│   ├── Router.php
-│   ├── Controller.php
-│   ├── Model.php
-│   ├── View.php
-│   └── Database.php
-├── vendor/
-├── .env
-├── composer.json
-└── README.md
-```
+### Points à améliorer:
 
-Dans `camagru/` :
-```shell
-composer install --no-dev --optimize-autoloader
-```
+- Uniformiser les requetes AJAX en JSON ou FormData pour plus de clarté
+- Améliorer la structure du javascript
+- Clean code général
+- Fix le bug qui transforme le background noir en transparent dans EditorController
 
 ## Ressources
 
 ### Documentations
 
-- [Boostrap 4.0](https://getbootstrap.com/docs/4.0/getting-started/introduction/)
-
 - [MailJet](https://dev.mailjet.com/email/guides/) - Plateforme de livraison de courrier électronique avec API.
+
+- [Docker](https://docs.docker.com/)
+
+- [NGINX](https://nginx.org/)
+
+- [PHP](https://www.php.net/)
+
+- [JavaScript](https://developer.mozilla.org/fr/docs/Web/JavaScript)
+
 ### Sécurité
 
 - [Sécurité web : SessionID, Cookies et Authentification !](https://www.youtube.com/watch?v=J-1s-ONitRc) - **Hafnium - Sécurité informatique** (YouTube)
