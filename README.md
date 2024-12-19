@@ -1,6 +1,8 @@
 # camagru
 
-Le projet consiste en une application web permettant de modifier des photos et vidéos en utilisant une webcam et des images avec canal alpha. L'utilisateur peut choisir une image dans une liste, prendre une photo, et voir les deux images fusionnées. Toutes les images capturées sont publiques, peuvent être aimées et commentées.
+Le projet consiste en une application web permettant de faire un petit montage photo avec ou sans webcam.
+
+L'utilisateur peut prendre une photo à partir de sa webcam ou importer une image, y ajouter des stickers issus d'une liste et publier le rendu. Toutes les images finales sont publiques, peuvent être aimées et commentées.
 
 Sujet : [EN](https://github.com/Echo24h/camagru/blob/main/en.subject.pdf)
 
