@@ -16,7 +16,11 @@ Sujet : [EN](https://github.com/Echo24h/camagru/blob/main/en.subject.pdf)
 
 ## Déploiement
 
-Utilisez simplement `make`.
+1. Créer un fichier `.env` à partir de `.env.example` et complétez-le avec vos informations.
+
+2. Utilisez simplement la commande `make`.
+
+3. Par défaut, le projet est accessible à l'adresse : `https://localhost:8081`.
 
 *PS: assurez-vous d'avoir docker-compose installé.*
 
