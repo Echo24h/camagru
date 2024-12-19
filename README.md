@@ -6,6 +6,12 @@ L'utilisateur peut prendre une photo à partir de sa webcam ou importer une imag
 
 Sujet : [EN](https://github.com/Echo24h/camagru/blob/main/en.subject.pdf)
 
+## Déploiement
+
+Utilisez `make`, tout simplement
+
+_PS: assurez-vous d'avoir docker-compose installé sur votre machine_
+
 ## Pages principales
 
 | **Connexion / Inscription** | **Editeur** |
