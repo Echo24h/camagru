@@ -6,7 +6,13 @@ L'utilisateur peut prendre une photo à partir de sa webcam ou importer une imag
 
 Sujet : [EN](https://github.com/Echo24h/camagru/blob/main/en.subject.pdf)
 
-<img src="https://i.ibb.co/8z9KbVS/Capture-d-cran-du-2024-11-28-16-28-51.png" alt="Capture-d-cran-du-2024-11-28-16-28-51" width="100%" border-radius="10px">
+## Pages principales
+
+| **Connexion / Inscription** | **Editeur** |
+|-----------------------------|-------------|
+| ![Connexion / Inscription](https://i.ibb.co/rtYcfgb/Capture-d-cran-du-2024-12-19-20-43-14.png) | ![Editeur](https://i.ibb.co/jWmzVXZ/Capture-d-cran-du-2024-12-19-20-47-52.png) |
+| **Galerie** | **Paramètres** |
+| ![Galerie](https://i.ibb.co/nmp88Yv/Capture-d-cran-du-2024-12-19-20-49-22.png) | ![Paramètres](https://i.ibb.co/RvWcr6h/Capture-d-cran-du-2024-12-19-20-50-17.png) |
 
 ## Reste à faire
 
