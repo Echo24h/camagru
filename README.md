@@ -8,9 +8,9 @@ Sujet : [EN](https://github.com/Echo24h/camagru/blob/main/en.subject.pdf)
 
 ## Déploiement
 
-Utilisez `make`, tout simplement
+Utilisez simplement `make`.
 
-_PS: assurez-vous d'avoir docker-compose installé sur votre machine_
+*PS: assurez-vous d'avoir docker-compose installé.*
 
 ## Pages principales
 
