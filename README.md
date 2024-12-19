@@ -12,7 +12,7 @@ Sujet : [EN](https://github.com/Echo24h/camagru/blob/main/en.subject.pdf)
 |-----------------------------|-------------|
 | ![Connexion / Inscription](https://i.ibb.co/rtYcfgb/Capture-d-cran-du-2024-12-19-20-43-14.png) | ![Editeur](https://i.ibb.co/jWmzVXZ/Capture-d-cran-du-2024-12-19-20-47-52.png) |
 | **Galerie** | **Paramètres** |
-| ![Galerie](https://i.ibb.co/nmp88Yv/Capture-d-cran-du-2024-12-19-20-49-22.png) | ![Paramètres](https://i.ibb.co/RvWcr6h/Capture-d-cran-du-2024-12-19-20-50-17.png) |
+| ![Galerie](https://i.ibb.co/6NF03NJ/GALERIE.png) | ![Paramètres](https://i.ibb.co/RvWcr6h/Capture-d-cran-du-2024-12-19-20-50-17.png) |
 
 ## Reste à faire
 
