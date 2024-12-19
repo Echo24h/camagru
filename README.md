@@ -5,6 +5,10 @@
 ## Reste à faire
 
 - Responsive
+- Nettoyer le code :
+  - Uniformiser les requêtes AJAX en JSON.
+  - Réorganiser la structure du JavaScript.
+  - Effectuer un nettoyage général du PHP.
 
 ## BONUS (fait)
 
@@ -18,9 +22,6 @@
 
 ### Points à améliorer:
 
-- Uniformiser les requetes AJAX en JSON ou FormData pour plus de clarté
-- Améliorer la structure du javascript
-- Clean code général
 - Fix le bug qui transforme le background noir en transparent dans EditorController
 
 ## Ressources
