@@ -26,7 +26,6 @@ Sujet : [EN](https://github.com/Echo24h/camagru/blob/main/en.subject.pdf)
 
 ## Reste à faire
 
-- Responsive
 - Nettoyer le code :
   - Uniformiser les requêtes AJAX en JSON.
   - Réorganiser la structure du JavaScript.
