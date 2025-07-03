@@ -12,9 +12,18 @@ submitButton.addEventListener('click', () => {
     }
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
-    canvas.width = mainImage.width;
-    canvas.height = mainImage.height;
-    ctx.drawImage(mainImage, 0, 0);
+    try {
+        const rect = mainImage.getBoundingClientRect();
+
+        canvas.width = rect.width;
+        canvas.height = rect.height;
+
+        ctx.drawImage(mainImage, 0, 0, rect.width, rect.height);
+    } catch (e) {
+        alert("L'image est cassée ou invalide, impossible de la dessiner.");
+        return ;
+    }
+
     const dataURL = canvas.toDataURL('image/png');
 
     stickers = editorInterface.querySelectorAll('.sticker');
@@ -70,7 +79,7 @@ submitButton.addEventListener('click', () => {
                 submitButton.disabled = true;
                 setTimeout(() => {
                     submitButton.disabled = false;
-                }, 500);
+                }, 1000);
             } else {
                 alert('Erreur lors de l\'enregistrement de l\'image.');
             }
@@ -83,7 +92,7 @@ submitButton.addEventListener('click', () => {
 });
 
 // Fonction pour télécharger l'image
-function downloadImage() {
+function downloadImage_current() {
     const mainImage = document.querySelector('#main-image');
     if (!mainImage) {
         alert('Aucune image trouvée dans l\'éditeur.');
@@ -162,9 +171,6 @@ function resetEditor() {
     allStickers.forEach(sticker => {
         sticker.remove();
     });
-    editorInterface.style.width = '100%';
-    editorInterface.style.height = '720px';
-    editorInterface.style.maxWidth = '1280px';
 }
 
 // Fonction pour gérer la suppression d'une image
@@ -236,6 +242,7 @@ function downloadImage(imageId) {
     const link = document.createElement('a');
     link.download = 'camagru_image.png';
     link.href = '/image?id=' + imageId;
+    console.info(link.href)
     link.click();
 }
 
@@ -247,4 +254,4 @@ document.querySelectorAll('.download-thumbnail').forEach(button => {
     handleDownloadImage(button);
 });
 
-document.querySelector('#download-image').addEventListener('click', downloadImage);
+document.querySelector('#download-image').addEventListener('click', downloadImage_current);

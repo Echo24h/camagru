@@ -4,6 +4,7 @@ let webcamStream = null; // Flux de la webcam
 async function startWebcam() {
     try {
         const video = document.querySelector('#webcam');
+        video.style.display = 'block';
         const stream = await navigator.mediaDevices.getUserMedia({ video: true });
         video.srcObject = stream;
         webcamStream = stream;
@@ -11,10 +12,7 @@ async function startWebcam() {
         const takePictureButton = document.querySelector('#take-picture');
         takePictureButton.disabled = false;
         // recupere la taille de la video
-        const { width, height } = stream.getTracks()[0].getSettings();
         resetEditor();
-        editorInterface.style.width = `${width}px`;
-        editorInterface.style.height = `${height}px`;
         const toggleIcon = document.querySelector('#toggle-icon');
         toggleIcon.src = "/img/camera-off.svg"; // Change l'image pour l'état "on"
     } catch (error) {
@@ -26,6 +24,7 @@ async function startWebcam() {
 function resetEditor() {
     // Suppression de l'ancienne image et des stickers
     const oldImage = document.querySelector('#main-image');
+    video.style.display = 'block';
     const allStickers = editorInterface.querySelectorAll('.sticker');
     if (oldImage) {
         oldImage.remove();
@@ -33,9 +32,6 @@ function resetEditor() {
     allStickers.forEach(sticker => {
         sticker.remove();
     });
-    editorInterface.style.width = '100%';
-    editorInterface.style.height = '720px';
-    editorInterface.style.maxWidth = '1280px';
 }
 
 function stopWebcam(reset) {
@@ -83,10 +79,15 @@ async function takePicture() {
     const context = canvas.getContext('2d');
     context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
+    video.style.display = 'none';
+
     // Création de l'image
     const image = new Image();
     image.src = canvas.toDataURL('image/png');
     image.id = 'main-image';
+    image.style.overflow = 'hidden';
+    image.style.width = '100%';
+    image.style.height = '100%';
 
     // Affichage de l'image
     document.querySelector('.editor-interface').appendChild(image);

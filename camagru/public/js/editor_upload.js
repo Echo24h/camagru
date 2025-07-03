@@ -11,9 +11,6 @@ function resetEditor() {
     allStickers.forEach(sticker => {
         sticker.remove();
     });
-    editorInterface.style.width = '100%';
-    editorInterface.style.height = '720px';
-    editorInterface.style.maxWidth = '1280px';
 }
 
 // Fonction pour upload l'image dans l'éditeur
@@ -29,7 +26,6 @@ imageUpload.addEventListener('change', function(event) {
             // Création de la nouvelle image
             const imgElement = document.createElement('img');
             imgElement.src = e.target.result;
-            imgElement.style.position = 'absolute';
             imgElement.id = 'main-image';
 
             // Ajout de l'image à l'éditeur
@@ -54,11 +50,10 @@ imageUpload.addEventListener('change', function(event) {
                     ctx.drawImage(imgElement, 0, 0, canvas.width, canvas.height);
                     imgElement.src = canvas.toDataURL('image/png');
                 }
-
-                // Redimensionnement de l'éditeur en fonction des nouvelles dimensions de l'image
-                editorInterface.style.width = imgElement.width + 'px';
-                editorInterface.style.height = imgElement.height + 'px';
             };
+
+            const video = document.querySelector('#webcam');
+            video.style.display = 'none';
 
             // Réinitialisation de l'input
             imageUpload.value = '';

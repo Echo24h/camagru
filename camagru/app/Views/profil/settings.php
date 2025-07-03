@@ -46,7 +46,7 @@
     <form action="/settings" method="POST">
         <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token'] ?? '') ?>">
         <div class="checkbox-group">
-            <label for="email_visibility">Rendre l'email public :</label>
+            <label for="email_visibility">Email public :</label>
             <input type="checkbox" id="email_visibility" name="email_visibility" <?= htmlspecialchars($user['email_visibility']) ? 'checked' : '' ?>>
         </div>
     </form>
@@ -55,7 +55,7 @@
     <form action="/settings" method="POST">
         <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token'] ?? '') ?>">
         <div class="checkbox-group">
-            <label for="notifications">Activer les notifications par email :</label>
+            <label for="notifications">Notifications par email :</label>
             <input type="checkbox" id="notifications" name="notifications" <?= htmlspecialchars($user['notifications']) ? 'checked' : '' ?>>
         </div>
     </form>

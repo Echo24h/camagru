@@ -15,8 +15,8 @@ function addSticker(sticker) {
     imgElement.style.position = 'absolute';
     imgElement.style.cursor = 'move';
     imgElement.style.zIndex = 1;
-    imgElement.style.left = (editorInterface.clientWidth / 2 - 100) + 'px';;
-    imgElement.style.top = (editorInterface.clientHeight / 2 - 100) + 'px';
+    imgElement.style.left = (editorInterface.clientWidth / 2) + 'px';;
+    imgElement.style.top = (editorInterface.clientHeight / 2) + 'px';
     editorInterface.appendChild(imgElement);
     handleImageEvents(imgElement);
 }
@@ -60,15 +60,15 @@ function handleImageEvents(imgElement) {
             offsetX = e.clientX - imgElement.getBoundingClientRect().left;
             offsetY = e.clientY - imgElement.getBoundingClientRect().top;
             imgElement.style.cursor = 'grabbing';
-            imgElement.style.border = '2px dashed #333';
+            imgElement.style.border = '2px dashed #333';    
         }
     });
 
     window.addEventListener('mousemove', function(e) {
         if (isDragging) {
-            const editorRect = editorInterface.getBoundingClientRect();
-            let x = e.clientX - offsetX - editorRect.left;
-            let y = e.clientY - offsetY - editorRect.top;
+            // const editorRect = editorInterface.getBoundingClientRect();
+            let x = e.clientX - offsetX;
+            let y = e.clientY - offsetY;
             imgElement.style.left = `${x}px`;
             imgElement.style.top = `${y}px`;
         }

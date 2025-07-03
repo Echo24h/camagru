@@ -18,9 +18,6 @@
                     <button id="reset-editor">
                         <img class="editor-icon" src="/img/reset.svg" alt="Réinitialiser l'éditeur">
                     </button>
-                </div>
-                <h1>|</h1>
-                <div>
                     <button id="save-image">
                         <img class="editor-icon" src="/img/save.svg" alt="Sauvegarder l'image">
                     </button>
@@ -31,9 +28,9 @@
             </div>
         </div>
 
-        <div class="container-center">
+        <div class="container-editor">
             <div class="editor-interface">
-                <video id="webcam" width="100%" height="auto" autoplay></video>
+                <video id="webcam" width="100%" autoplay></video>
             </div>
         </div>
 
