@@ -11,6 +11,9 @@ function resetEditor() {
     allStickers.forEach(sticker => {
         sticker.remove();
     });
+    isStickerActive = false;
+    isImageActive = false;
+    updateButtonsState();
 }
 
 // Fonction pour upload l'image dans l'éditeur
@@ -54,6 +57,9 @@ imageUpload.addEventListener('change', function(event) {
 
             const video = document.querySelector('#webcam');
             video.style.display = 'none';
+
+            isImageActive = true;
+            updateButtonsState()
 
             // Réinitialisation de l'input
             imageUpload.value = '';

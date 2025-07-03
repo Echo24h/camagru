@@ -19,6 +19,8 @@ function addSticker(sticker) {
     imgElement.style.top = (editorInterface.clientHeight / 2) + 'px';
     editorInterface.appendChild(imgElement);
     handleImageEvents(imgElement);
+    isStickerActive = true;
+    updateButtonsState();
 }
 
 // Fonction pour gérer les événements liés à l'image (déplacement, suppression)

@@ -1,4 +1,3 @@
-let isWebcamActive = false; // État de la webcam
 let webcamStream = null; // Flux de la webcam
 
 async function startWebcam() {
@@ -8,11 +7,11 @@ async function startWebcam() {
         const stream = await navigator.mediaDevices.getUserMedia({ video: true });
         video.srcObject = stream;
         webcamStream = stream;
-        isWebcamActive = true;
         const takePictureButton = document.querySelector('#take-picture');
-        takePictureButton.disabled = false;
         // recupere la taille de la video
         resetEditor();
+        isWebcamActive = true;
+        updateButtonsState();
         const toggleIcon = document.querySelector('#toggle-icon');
         toggleIcon.src = "/img/camera-off.svg"; // Change l'image pour l'état "on"
     } catch (error) {
@@ -32,6 +31,9 @@ function resetEditor() {
     allStickers.forEach(sticker => {
         sticker.remove();
     });
+    isStickerActive = false;
+    isImageActive = false;
+    updateButtonsState();
 }
 
 function stopWebcam(reset) {
@@ -40,11 +42,10 @@ function stopWebcam(reset) {
         tracks.forEach(track => track.stop()); // Arrête chaque piste
         webcamStream = null;
     }
-    const takePictureButton = document.querySelector('#take-picture');
-    takePictureButton.disabled = true;
+    isWebcamActive = false;
+    updateButtonsState();
     const video = document.querySelector('#webcam');
     video.srcObject = null; // Supprime le flux de la balise vidéo
-    isWebcamActive = false;
     const toggleIcon = document.querySelector('#toggle-icon');
     toggleIcon.src = "/img/camera-on.svg"; // Change l'image pour l'état "off"
     if (reset) {
@@ -53,8 +54,6 @@ function stopWebcam(reset) {
 }
 
 document.querySelector('#toggle-webcam').addEventListener('click', async () => {
-    const toggleIcon = document.querySelector('#toggle-icon');
-
     if (isWebcamActive) {
         stopWebcam(true);
     } else {
@@ -92,6 +91,8 @@ async function takePicture() {
     // Affichage de l'image
     document.querySelector('.editor-interface').appendChild(image);
     stopWebcam(false);
+    isImageActive = true;
+    updateButtonsState()
 }
 
 // Ajout d'un écouteur pour le bouton

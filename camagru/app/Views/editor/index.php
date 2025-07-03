@@ -15,13 +15,13 @@
                             <img class="editor-icon" src="/img/upload.svg" alt="Importer une image">
                         <input type="file" id="image-upload" accept="image/*">
                     </button>
-                    <button id="reset-editor">
+                    <button id="reset-editor" disabled>
                         <img class="editor-icon" src="/img/reset.svg" alt="Réinitialiser l'éditeur">
                     </button>
-                    <button id="save-image">
+                    <button id="save-image" disabled>
                         <img class="editor-icon" src="/img/save.svg" alt="Sauvegarder l'image">
                     </button>
-                    <button id="download-image">
+                    <button id="download-image" disabled>
                         <img class="editor-icon" src="/img/download.svg" alt="Télécharger l'image">
                     </button>
                 </div>
@@ -72,6 +72,7 @@
         </div>
     </div>
 </div>
+<script src="/js/editor_buttons.js" defer></script>
 <script src="/js/editor.js" defer></script>
 <script src="/js/editor_webcam.js" defer></script>
 <script src="/js/editor_upload.js" defer></script>

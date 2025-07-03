@@ -171,6 +171,9 @@ function resetEditor() {
     allStickers.forEach(sticker => {
         sticker.remove();
     });
+    isStickerActive = false;
+    isImageActive = false;
+    updateButtonsState();
 }
 
 // Fonction pour gérer la suppression d'une image
