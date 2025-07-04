@@ -47,6 +47,31 @@ Sujet : [EN](https://github.com/Echo24h/camagru/blob/main/en.subject.pdf)
 
 ## Ressources
 
+## Accès à la base de données MySQL
+
+```bash
+# Accéder au conteneur Docker
+docker exec -it <nom_du_conteneur> bash
+
+# Se connecter à MySQL (depuis l'intérieur du conteneur)
+mysql -u root -p
+```
+
+
+```sql
+-- Lister les bases de données
+SHOW DATABASES;
+
+-- Utiliser la base de données principale
+USE appdb;
+
+-- Lister les tables disponibles
+SHOW TABLES;
+
+-- Voir le contenu de la table "users"
+SELECT * FROM users;
+```
+
 ### Documentations
 
 - [MailJet](https://dev.mailjet.com/email/guides/) - Plateforme de livraison de courrier électronique avec API.
