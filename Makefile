@@ -7,11 +7,11 @@ stop:
 	docker-compose stop
 
 clean: stop
-	docker-compose down -v --remove-orphans
+	docker system prune
 
 fclean: clean
-	docker system prune -af
+	docker-compose down -v --remove-orphans
 
-re: fclean all
+re: clean all
 
 .PHONY: all run stop clean fclean re
