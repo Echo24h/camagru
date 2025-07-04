@@ -47,7 +47,7 @@ Sujet : [EN](https://github.com/Echo24h/camagru/blob/main/en.subject.pdf)
 
 ## Ressources
 
-## Accès à la base de données MySQL
+### Accès à la base de données MySQL
 
 ```bash
 # Accéder au conteneur Docker
